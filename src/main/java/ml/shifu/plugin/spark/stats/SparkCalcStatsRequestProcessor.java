@@ -1,4 +1,4 @@
-package ml.shifu.plugin.spark;
+package ml.shifu.plugin.spark.stats;
 import java.lang.ProcessBuilder.Redirect;
 
 import ml.shifu.core.di.spi.RequestProcessor;
@@ -38,7 +38,7 @@ public class SparkCalcStatsRequestProcessor implements RequestProcessor{
         // construct spark-submit command
         String pathSparkSubmit= sparkHome + "/bin/spark-submit";
         ProcessBuilder procBuilder = new ProcessBuilder(pathSparkSubmit,
-                "--class", "ml.shifu.plugin.spark.SparkStatsDriver", "--master",
+                "--class", "ml.shifu.plugin.spark.stats.SparkStatsDriver", "--master",
                 sparkMode, "--driver-memory", sparkDriverMemory,
                 "--executor-memory", sparkExecutorMemory, "--num-executors",
                 sparkNumExecutors, "--executor-cores", sparkExecutorCores,
@@ -50,8 +50,10 @@ public class SparkCalcStatsRequestProcessor implements RequestProcessor{
         Process proc = procBuilder.start();
         proc.waitFor();
         
+        // copy PMML to original pmml location
+        
         // delete the tmp directory
-        hdfs.delete(pathHDFSTmp);
+        //hdfs.delete(pathHDFSTmp);
         
 	}
 }

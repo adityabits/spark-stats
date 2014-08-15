@@ -6,7 +6,7 @@
  *  3. HDFS path to PMML XML
  *  4. HDFS path to Request json
  */
-package ml.shifu.plugin.spark;
+package ml.shifu.plugin.spark.stats;
 
 import java.io.IOException;
 import java.net.URI;
@@ -18,6 +18,8 @@ import ml.shifu.core.util.JSONUtils;
 import ml.shifu.core.util.PMMLUtils;
 import ml.shifu.core.util.Params;
 import ml.shifu.core.util.RequestUtils;
+import ml.shifu.plugin.spark.stats.CombinedUtils;
+import ml.shifu.plugin.spark.stats.interfaces.SparkUnivariateStatsCalculator;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -28,7 +30,6 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.dmg.pmml.Model;
 import org.dmg.pmml.ModelStats;
 import org.dmg.pmml.PMML;
-import org.dmg.pmml.UnivariateStats;
 
 public class SparkStatsDriver {
 
@@ -50,29 +51,29 @@ public class SparkStatsDriver {
         // TODO: Convert pathHDFSTmp to full hdfs path
         String pathHDFSTmp = (String) params.get("pathHDFSTmp",
                 "ml/shifu/plugin/spark/tmp");
-        String appName = (String) params.get("SparkAppName", "spark-norm");
+        
+        String appName = (String) params.get("SparkAppName", "spark-stats");
         SparkConf conf = new SparkConf().setAppName(appName);
         conf.set("spark.serializer",
                 "org.apache.spark.serializer.KryoSerializer");
-        conf.set("spark.kyro.Registrator", "ml.shifu.norm.MyRegistrator");
         JavaSparkContext jsc = new JavaSparkContext(conf);
 
         Binding binding = RequestUtils.getUniqueBinding(req, "UnivariateStatsCalculator");
         Params bindingParams= binding.getParams();
-        // use DI
+        
+        // TODO: use DI
         SparkUnivariateStatsCalculator sparkCalculator= new SparkSimpleUnivariateStatsCalculator();
         // create RDD
         JavaRDD<String> data= jsc.textFile(pathHdfsInput);
         
-        UnivariateStats univariateStats= sparkCalculator.calculate(jsc, data, pmml, bindingParams);
+        ModelStats modelStats= sparkCalculator.calculate(jsc, data, pmml, bindingParams);
         
         // store univariateStats in pmml and save in pathPMML
-        ModelStats modelStats= new ModelStats().withUnivariateStats(univariateStats);
         Model model = PMMLUtils.getModelByName(pmml, (String) bindingParams.get("modelName"));
         model.setModelStats(modelStats);
         
         // save PMML to HDFS tmp
-        // PMMLUtils.savePMML()
+        CombinedUtils.savePMML(pmml, pathHdfsPmml, hdfs);
     }
 
 }

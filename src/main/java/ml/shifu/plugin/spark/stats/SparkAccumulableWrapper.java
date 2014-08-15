@@ -2,12 +2,13 @@
  * This is a wrapper class for ColumnStateArray required by Spark.
  */
 
-package ml.shifu.plugin.spark;
+package ml.shifu.plugin.spark.stats;
 
 import org.apache.spark.AccumulableParam;
 
 public class SparkAccumulableWrapper implements
         AccumulableParam<ColumnStateArray, String> {
+
 
     public ColumnStateArray addAccumulator(ColumnStateArray stateArray, String row) {
         stateArray.addData(row);
@@ -20,11 +21,13 @@ public class SparkAccumulableWrapper implements
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        
+        return stateArray1;
     }
 
     public ColumnStateArray zero(ColumnStateArray initValue) {
-        return new ColumnStateArray(initValue);
+        ColumnStateArray carray=  new ColumnStateArray(initValue);
+        return carray;
     }
 
 }

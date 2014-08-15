@@ -3,7 +3,8 @@ package ml.shifu.plugin.spark.stats.unitstates;
 import org.dmg.pmml.Counts;
 import org.dmg.pmml.UnivariateStats;
 
-import ml.shifu.plugin.spark.UnitState;
+import ml.shifu.core.util.Params;
+import ml.shifu.plugin.spark.stats.interfaces.UnitState;
 
 public class FrequencyUnitState implements UnitState {
     private double totalFreq = 0;
@@ -59,13 +60,25 @@ public class FrequencyUnitState implements UnitState {
         return true;  
     }
     
-    public void populatePMML(UnivariateStats univariateStats) {
-        // TODO: What about cardinality?
+    public void populateUnivariateStats(UnivariateStats univariateStats, Params params) {
+        Counts counts= univariateStats.getCounts();
+        if(counts==null) {
+            counts= new Counts();
+        }
+        counts.withInvalidFreq(this.invalidFreq);
+        counts.withMissingFreq(this.missingFreq);
+        counts.withTotalFreq(this.totalFreq);        
+        
+        univariateStats.withCounts(counts);
+    }
+    
+    public Counts getCounts() {
+        // TODO: Does not compute cardinality
         Counts counts= new Counts();
         counts.withInvalidFreq(this.invalidFreq);
         counts.withMissingFreq(this.missingFreq);
         counts.withTotalFreq(this.totalFreq);
-        univariateStats.withCounts(counts);
+        return counts;
     }
     
 }
