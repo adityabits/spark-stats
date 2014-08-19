@@ -21,18 +21,14 @@ public class SimpleUnivariateOrdinalState extends ColumnState {
         params= parameters;
         fieldName= name;
     }
-
     
     public ColumnState getNewBlank() {
         return new SimpleUnivariateOrdinalState(fieldName, params);
     }
-
 
     @Override
     public void checkClass(ColumnState colState) throws Exception {
         if(!(colState instanceof SimpleUnivariateOrdinalState))
             throw new Exception("Expected UnivariateOrdinalState in merge, got " + colState.getClass().toString());    
     }
-
-    
 }

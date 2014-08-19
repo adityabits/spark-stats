@@ -4,6 +4,8 @@
 
 package ml.shifu.plugin.spark.stats;
 
+import ml.shifu.plugin.spark.stats.interfaces.ColumnStateArray;
+
 import org.apache.spark.AccumulableParam;
 
 public class SparkAccumulableWrapper implements
@@ -26,8 +28,12 @@ public class SparkAccumulableWrapper implements
     }
 
     public ColumnStateArray zero(ColumnStateArray initValue) {
-        ColumnStateArray carray=  new ColumnStateArray(initValue);
-        return carray;
+        try {
+            return initValue.getNewBlank();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

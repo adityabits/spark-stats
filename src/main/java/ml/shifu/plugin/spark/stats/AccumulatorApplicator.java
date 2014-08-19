@@ -1,5 +1,7 @@
 package ml.shifu.plugin.spark.stats;
 
+import ml.shifu.plugin.spark.stats.interfaces.ColumnStateArray;
+
 import org.apache.spark.Accumulable;
 import org.apache.spark.api.java.function.VoidFunction;
 

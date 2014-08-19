@@ -30,10 +30,10 @@ public class FrequencyUnitState implements UnitState {
         this.invalidFreq+= newState.getInvalid();
     }
 
-    public void addData(String strValue) {
-        if(strValue==null || strValue.length()==0)
+    public void addData(Object objValue) {
+        if(objValue==null || objValue.toString().length()==0)
             this.missingFreq++;
-        else if(!isNumeric(strValue))
+        else if(!isNumeric(objValue.toString()))
             this.invalidFreq++;
         this.totalFreq++;
 
@@ -70,15 +70,6 @@ public class FrequencyUnitState implements UnitState {
         counts.withTotalFreq(this.totalFreq);        
         
         univariateStats.withCounts(counts);
-    }
-    
-    public Counts getCounts() {
-        // TODO: Does not compute cardinality
-        Counts counts= new Counts();
-        counts.withInvalidFreq(this.invalidFreq);
-        counts.withMissingFreq(this.missingFreq);
-        counts.withTotalFreq(this.totalFreq);
-        return counts;
     }
     
 }

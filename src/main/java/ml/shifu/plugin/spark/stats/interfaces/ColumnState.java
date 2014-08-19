@@ -7,10 +7,13 @@ import java.util.List;
 
 import ml.shifu.core.util.Params;
 
+import org.dmg.pmml.FieldName;
 import org.dmg.pmml.UnivariateStats;
 
 
 public abstract class ColumnState implements java.io.Serializable {
+
+    private static final long serialVersionUID = 1L;
     protected List<UnitState> states;
     protected Params params;
     protected String fieldName;
@@ -28,9 +31,9 @@ public abstract class ColumnState implements java.io.Serializable {
         
     abstract public void checkClass(ColumnState colState) throws Exception;
     
-    public void addData(String strValue) {
+    public void addData(Object value) {
         for(UnitState state: this.states) 
-            state.addData(strValue);
+            state.addData(value);
     }
 
     public List<UnitState> getStates() {
@@ -38,9 +41,11 @@ public abstract class ColumnState implements java.io.Serializable {
     }
 
     public UnivariateStats getUnivariateStats() {
+        
         UnivariateStats univariateStats= new UnivariateStats();
         for(UnitState state:this.states)
             state.populateUnivariateStats(univariateStats, this.params);
+        univariateStats.setField(new FieldName(fieldName));
         return univariateStats;
     }
     

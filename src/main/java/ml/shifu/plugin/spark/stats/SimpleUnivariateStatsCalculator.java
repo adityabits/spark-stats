@@ -3,7 +3,8 @@ package ml.shifu.plugin.spark.stats;
 import java.util.List;
 
 import ml.shifu.core.util.Params;
-import ml.shifu.plugin.spark.stats.interfaces.SparkUnivariateStatsCalculator;
+import ml.shifu.plugin.spark.stats.interfaces.ColumnStateArray;
+import ml.shifu.plugin.spark.stats.interfaces.SparkStatsCalculator;
 
 import org.apache.spark.Accumulable;
 import org.apache.spark.api.java.JavaRDD;
@@ -13,15 +14,14 @@ import org.dmg.pmml.ModelStats;
 import org.dmg.pmml.PMML;
 import org.dmg.pmml.UnivariateStats;
 
-public class SparkSimpleUnivariateStatsCalculator implements
-        SparkUnivariateStatsCalculator {
+public class SimpleUnivariateStatsCalculator implements
+        SparkStatsCalculator {
 
     public ModelStats calculate(JavaSparkContext jsc, JavaRDD<String> data, PMML pmml, Params bindingParams) {
         List<DataField> dataFields= pmml.getDataDictionary().getDataFields();
-        Accumulable<ColumnStateArray, String> accum= jsc.accumulable(new ColumnStateArray(dataFields, bindingParams), new SparkAccumulableWrapper());
+        Accumulable<ColumnStateArray, String> accum= jsc.accumulable(new SimpleUnivariateColumnStateArray(dataFields, bindingParams), new SparkAccumulableWrapper());
         data.foreach(new AccumulatorApplicator(accum));
         ColumnStateArray colStateArray= accum.value();
         return colStateArray.getModelStats();
     }
-
 }

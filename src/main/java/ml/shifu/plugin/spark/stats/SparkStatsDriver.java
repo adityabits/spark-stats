@@ -19,7 +19,7 @@ import ml.shifu.core.util.PMMLUtils;
 import ml.shifu.core.util.Params;
 import ml.shifu.core.util.RequestUtils;
 import ml.shifu.plugin.spark.stats.CombinedUtils;
-import ml.shifu.plugin.spark.stats.interfaces.SparkUnivariateStatsCalculator;
+import ml.shifu.plugin.spark.stats.interfaces.SparkStatsCalculator;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -62,7 +62,7 @@ public class SparkStatsDriver {
         Params bindingParams= binding.getParams();
         
         // TODO: use DI
-        SparkUnivariateStatsCalculator sparkCalculator= new SparkSimpleUnivariateStatsCalculator();
+        SparkStatsCalculator sparkCalculator= new BinomialStatsCalculator();
         // create RDD
         JavaRDD<String> data= jsc.textFile(pathHdfsInput);
         

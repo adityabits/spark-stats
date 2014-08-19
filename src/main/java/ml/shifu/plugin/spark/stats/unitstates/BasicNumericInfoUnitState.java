@@ -10,6 +10,7 @@ import ml.shifu.core.util.Params;
 import ml.shifu.plugin.spark.stats.interfaces.UnitState;
 
 public class BasicNumericInfoUnitState implements UnitState {
+    private static final long serialVersionUID = 1L;
     private Double min;
     private Double max;
     private Integer n;
@@ -40,15 +41,19 @@ public class BasicNumericInfoUnitState implements UnitState {
         
     }
 
-    public void addData(String strValue) {
-        if(CommonUtils.isValidNumber(strValue)) {
-            Double value= Double.valueOf(strValue);
-            this.n++;
-            this.sum+= value;
-            this.sumSqr+= Math.pow(value, 2);
-            this.max= Math.max(this.max, value);
-            this.min= Math.min(this.min, value);
+    public void addData(Object value) {
+        if(CommonUtils.isValidNumber(value)) {
+            Double dVal= Double.valueOf(value.toString());
+            addData(dVal);
         }
+    }
+
+    public void addData(Double dVal) {
+        this.n++;
+        this.sum+= dVal;
+        this.sumSqr+= Math.pow(dVal, 2);
+        this.max= Math.max(this.max, dVal);
+        this.min= Math.min(this.min, dVal);
     }
 
     private Double getMin() {
@@ -67,22 +72,6 @@ public class BasicNumericInfoUnitState implements UnitState {
         return this.max;
     }
     
-    public NumericInfo getNumericInfo() {
-        NumericInfo numInfo= new NumericInfo();
-        numInfo.withMaximum(this.max);
-        numInfo.withMinimum(this.min);
-        if(n==0 || sum.isInfinite() || sumSqr.isInfinite())
-            return numInfo;
-        
-        numInfo.setMean(sum/n);
-        Double EPS= 1e-6;
-        // Why the + EPS and -1?
-        double stdDev = Math.sqrt((this.sumSqr - (this.sum * this.sum) / this.n + EPS)
-                / (this.n - 1));
-        numInfo.setStandardDeviation(stdDev);
-        // does not set median and quartile range
-        return numInfo;
-    }
     
     public void populateUnivariateStats(UnivariateStats univariateStats, Params params) {
         ContStats contStats= univariateStats.getContStats();
@@ -105,12 +94,11 @@ public class BasicNumericInfoUnitState implements UnitState {
             
         numInfo.setMean(sum/n);
         Double EPS= 1e-6;
-        // Why the + EPS and -1?
         double stdDev = Math.sqrt((this.sumSqr - (this.sum * this.sum) / this.n + EPS)
                 / (this.n - 1));
         numInfo.setStandardDeviation(stdDev);
         univariateStats.withNumericInfo(numInfo);
-        // does not set median and quartile range
+        // does not set median or quartile range
         
     }
     
