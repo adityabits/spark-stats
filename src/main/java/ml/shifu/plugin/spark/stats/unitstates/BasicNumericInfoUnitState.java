@@ -25,6 +25,7 @@ public class BasicNumericInfoUnitState implements UnitState {
         this.sumSqr= 0.0;
         
     }
+    
     public UnitState getNewBlank() {
         return new BasicNumericInfoUnitState();
     }
@@ -42,13 +43,19 @@ public class BasicNumericInfoUnitState implements UnitState {
     }
 
     public void addData(Object value) {
+        if(value instanceof Double) {
+            addData((Double)value);
+            return;
+        }
         if(CommonUtils.isValidNumber(value)) {
             Double dVal= Double.valueOf(value.toString());
             addData(dVal);
         }
     }
-
+    
     public void addData(Double dVal) {
+        if(dVal==null)
+            return;
         this.n++;
         this.sum+= dVal;
         this.sumSqr+= Math.pow(dVal, 2);
@@ -56,19 +63,20 @@ public class BasicNumericInfoUnitState implements UnitState {
         this.min= Math.min(this.min, dVal);
     }
 
-    private Double getMin() {
+    public Double getMin() {
         return this.min;
     }
-    private Double getSumSqr() {
+    public Double getSumSqr() {
         return this.sumSqr;
     }
-    private Double getSum() {
+    public Double getSum() {
         return this.sum;
     }
-    private Integer getN() {
+    public Integer getN() {
         return this.n;
     }
-    private Double getMax() {
+    
+    public Double getMax() {
         return this.max;
     }
     
@@ -102,11 +110,4 @@ public class BasicNumericInfoUnitState implements UnitState {
         
     }
     
-    public ContStats getContStats() {
-        ContStats contStats= new ContStats();
-        contStats.setTotalValuesSum(this.sum);
-        contStats.setTotalSquaresSum(this.sumSqr);
-        return contStats;
-    }
-
 }

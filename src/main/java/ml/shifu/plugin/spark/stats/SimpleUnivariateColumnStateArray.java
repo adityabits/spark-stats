@@ -13,8 +13,7 @@ import ml.shifu.plugin.spark.stats.interfaces.ColumnStateArray;
 import org.dmg.pmml.DataField;
 import org.dmg.pmml.OpType;
 
-public class SimpleUnivariateColumnStateArray extends ColumnStateArray{
-
+public class SimpleUnivariateColumnStateArray extends ColumnStateArray {
     
     public SimpleUnivariateColumnStateArray(SimpleUnivariateColumnStateArray initValue) {
         // creates a blank copy of stateArray
@@ -45,9 +44,7 @@ public class SimpleUnivariateColumnStateArray extends ColumnStateArray{
     }
     
     @Override
-    public ColumnStateArray getNewBlank() throws Exception {        
+    public ColumnStateArray getNewBlank() throws Exception {
         return new SimpleUnivariateColumnStateArray(this);
     }
-
-
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import ml.shifu.core.util.Params;
 import ml.shifu.plugin.spark.stats.interfaces.ColumnState;
 import ml.shifu.plugin.spark.stats.interfaces.UnitState;
-import ml.shifu.plugin.spark.stats.unitstates.DiscreteBinningState;
+import ml.shifu.plugin.spark.stats.unitstates.DiscreteBinningUnitState;
 import ml.shifu.plugin.spark.stats.unitstates.FrequencyUnitState;
 
 public class BinomialDiscrState extends ColumnState {
@@ -14,7 +14,7 @@ public class BinomialDiscrState extends ColumnState {
     public BinomialDiscrState(String name, Params parameters) {
         states= new ArrayList<UnitState>();
         states.add(new FrequencyUnitState());
-        states.add(new DiscreteBinningState());
+        states.add(new DiscreteBinningUnitState());
         params= parameters;
         fieldName= name;        
     }

@@ -34,13 +34,4 @@ public class BinomialOrdinalState extends ColumnState {
             throw new Exception("Expected BinomialOrdinalState, got " + colState.getClass().toString());
     }
     
-    public void addData(Object value) {
-        CategoricalValueObject cvo= (CategoricalValueObject) value;
-        
-        for(UnitState state: this.states) 
-            state.addData(cvo.getValue());
-    }
-
-    
-
 }

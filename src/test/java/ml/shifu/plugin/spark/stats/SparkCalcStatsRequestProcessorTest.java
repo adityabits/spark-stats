@@ -4,7 +4,6 @@ import java.io.File;
 
 import ml.shifu.core.request.Request;
 import ml.shifu.core.util.JSONUtils;
-
 import org.testng.annotations.Test;
 
 public class SparkCalcStatsRequestProcessorTest {
@@ -15,6 +14,5 @@ public class SparkCalcStatsRequestProcessorTest {
         Request req=  JSONUtils.readValue(new File("src/test/resources/spark_stats.json"), Request.class); 
         strp.exec(req);
     }
-
 
 }

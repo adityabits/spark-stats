@@ -42,6 +42,7 @@ public class BinomialContState extends ColumnState {
     }
     
     public void addData(Object data) {
+        try {
         // send only double values to first two states
         SerializedNumericalValueObject nvo= (SerializedNumericalValueObject) data;
         Double value= nvo.getValue();
@@ -50,6 +51,9 @@ public class BinomialContState extends ColumnState {
 
         // pass whole object to sampler
         states.get(2).addData(nvo);
+        } catch (NullPointerException | ClassCastException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }

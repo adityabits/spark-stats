@@ -7,6 +7,8 @@ import ml.shifu.core.util.Params;
 import ml.shifu.plugin.spark.stats.interfaces.UnitState;
 
 public class FrequencyUnitState implements UnitState {
+
+    private static final long serialVersionUID = 1L;
     private double totalFreq = 0;
     private double missingFreq = 0;
     private double invalidFreq = 0;
@@ -15,8 +17,8 @@ public class FrequencyUnitState implements UnitState {
         this.totalFreq= 0.0;
         this.missingFreq= 0.0;
         this.invalidFreq= 0.0;
-                
     }
+    
     public UnitState getNewBlank() {
         return new FrequencyUnitState();
     }
@@ -31,21 +33,24 @@ public class FrequencyUnitState implements UnitState {
     }
 
     public void addData(Object objValue) {
+        this.totalFreq++;
+        // check if double, for optimization 
+        if(objValue instanceof Double)
+            return;
+        
         if(objValue==null || objValue.toString().length()==0)
             this.missingFreq++;
-        else if(!isNumeric(objValue.toString()))
-            this.invalidFreq++;
-        this.totalFreq++;
-
+        else if(!isNumeric(objValue.toString()))   
+            this.invalidFreq++;            
     }
 
-    private double getInvalid() {
+    public double getInvalid() {
         return this.invalidFreq;
     }
-    private double getMissing() {
+    public double getMissing() {
         return this.missingFreq;
     }
-    private double getTotal() {
+    public double getTotal() {
         return this.totalFreq;
     }
     

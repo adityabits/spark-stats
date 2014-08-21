@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import ml.shifu.core.di.module.SimpleModule;
+import ml.shifu.core.di.service.UnivariateStatsService;
 import ml.shifu.core.request.Binding;
 import ml.shifu.core.request.Request;
 import ml.shifu.core.util.JSONUtils;
@@ -30,6 +32,9 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.dmg.pmml.Model;
 import org.dmg.pmml.ModelStats;
 import org.dmg.pmml.PMML;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class SparkStatsDriver {
 
@@ -58,22 +63,29 @@ public class SparkStatsDriver {
                 "org.apache.spark.serializer.KryoSerializer");
         JavaSparkContext jsc = new JavaSparkContext(conf);
 
-        Binding binding = RequestUtils.getUniqueBinding(req, "UnivariateStatsCalculator");
-        Params bindingParams= binding.getParams();
-        
-        // TODO: use DI
-        SparkStatsCalculator sparkCalculator= new BinomialStatsCalculator();
+
+        SimpleModule module = new SimpleModule();
+        Binding statsCalculatorBinding = RequestUtils.getUniqueBinding(req, "ml.shifu.plugin.spark.stats.interfaces.SparkStatsCalculator", true);
+        System.out.println("Binding: " + statsCalculatorBinding);
+        Params bindingParams= statsCalculatorBinding.getParams();
+        module.set(statsCalculatorBinding);
+        Injector injector = Guice.createInjector(module);
+
+        // using Guice dependency injection
+        SparkStatsService statsService= injector.getInstance(SparkStatsService.class);
+        // SparkStatsCalculator sparkCalculator= new BinomialStatsCalculator();
         // create RDD
         JavaRDD<String> data= jsc.textFile(pathHdfsInput);
         
-        ModelStats modelStats= sparkCalculator.calculate(jsc, data, pmml, bindingParams);
-        
+        ModelStats modelStats= statsService.calculate(jsc, data, pmml, bindingParams);
+        System.out.println("Done");
         // store univariateStats in pmml and save in pathPMML
         Model model = PMMLUtils.getModelByName(pmml, (String) bindingParams.get("modelName"));
         model.setModelStats(modelStats);
         
         // save PMML to HDFS tmp
         CombinedUtils.savePMML(pmml, pathHdfsPmml, hdfs);
+        System.out.println("Exiting Driver, saved PMML");
     }
 
 }

@@ -32,8 +32,12 @@ public abstract class ColumnState implements java.io.Serializable {
     abstract public void checkClass(ColumnState colState) throws Exception;
     
     public void addData(Object value) {
-        for(UnitState state: this.states) 
-            state.addData(value);
+        try {
+            for(UnitState state: this.states) 
+                state.addData(value);
+        } catch (NullPointerException | ClassCastException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public List<UnitState> getStates() {

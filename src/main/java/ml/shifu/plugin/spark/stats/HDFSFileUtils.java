@@ -5,6 +5,7 @@ package ml.shifu.plugin.spark.stats;
 
 import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.FileUtil;
@@ -47,15 +48,6 @@ public class HDFSFileUtils {
             hdfs.close();
     }
 
-    /*
-     * public void concat(Path trg, Path[] src) throws IOException { FileSystem
-     * hdfs= null; try { hdfs= FileSystem.get(this.hdfsConf); hdfs.concat(trg,
-     * src); } catch (IOException e) {
-     * System.out.println("Failed to concatenate paths to " + trg.toString());
-     * e.printStackTrace(); } finally { if(hdfs != null) hdfs.close(); }
-     * 
-     * }
-     */
 
     // deletes files from either local/ hdfs filesystems
     public boolean delete(String strPath) {
@@ -101,10 +93,10 @@ public class HDFSFileUtils {
         fs.close();
         return HDFSPath.toString();
     }
-
-    // uploads localPath to HDFSDir if localPath is on the local filesystem, and
-    // returns path of
-    // file on HDFS. Treats localPath as local if no scheme is specified.
+    
+    /*
+     *  uploads localPath to HDFSDir if localPath is on the local filesystem, and returns path of file on HDFS. Treats localPath as local if no scheme is specified.
+     */
     public String uploadToHDFSIfLocal(String localPath, String HDFSDir)
             throws Exception {
         if (localPath.startsWith("hdfs:"))
@@ -118,7 +110,9 @@ public class HDFSFileUtils {
         return relativeToFullHDFSPath(HDFSPath.toString());
     }
 
-    // gets home dir of HDFS filesystem
+    /*
+     *  gets home dir of HDFS filesystem
+     */
     public String getHDFSHomeDir() throws IOException {
         FileSystem hdfs = FileSystem.get(this.hdfsConf);
         String homeDir = hdfs.getHomeDirectory().toString();
@@ -138,13 +132,6 @@ public class HDFSFileUtils {
         }
     }
 
-    /*
-     * public boolean deleteFile(String pathStr) {
-     * 
-     * Path path= new Path(pathStr); boolean retValue = false; try { FileSystem
-     * fs= path.getFileSystem(this.hdfsConf); retValue= fs.delete(path, false);
-     * } catch (IOException e) { e.printStackTrace(); } return retValue; }
-     */
 
     // concatenates all files in dirpath to target. Currently does not use
     // PathFilter.
@@ -168,5 +155,62 @@ public class HDFSFileUtils {
         Path path = new Path(strPath);
         FileSystem fs = path.getFileSystem(this.hdfsConf);
         fs.create(path);
+    }
+    
+    public String fullPath(String path) throws IOException {
+        if(path.startsWith("hdfs") || path.startsWith("file"))
+            return path;
+        // path is local. 
+        else if(path.startsWith("/"))
+            return "file://" + path;
+        else if(path.startsWith("."))
+            return path;    // TODO: convert to full path by getting current working dir
+        else {   // path is relative to home of user
+            // if path starts with ~/ remote that portion
+            if(path.startsWith("~"))
+                if(path.length() > 2)
+                    path= path.substring(2);
+                else
+                    path= "";
+            FileSystem localFS= FileSystem.get(new Configuration());
+            Path homePath= localFS.getHomeDirectory();
+            localFS.close();
+            return homePath.toString() + "/" + path;
+        }
+    }
+    
+    /*
+     * Checks if a path is local.In absence of a schema, path is considered local by default.
+     */
+    public boolean isLocal(String path) {
+        return !isHDFS(path);
+    }
+    
+    public boolean isHDFS(String path) {
+        return path.startsWith("hdfs:");
+    }
+    
+    /*
+     * Universal copy method which copies file from local/hdfs to local/hdfs
+     */
+    public void copy(String source, String dest) throws IOException {
+        source= fullPath(source);
+        dest= fullPath(dest);
+        FileSystem hdfs= FileSystem.get(hdfsConf);
+        FileSystem local= FileSystem.get(new Configuration());
+        
+        if(isLocal(source) && isHDFS(dest)) {
+            hdfs.copyFromLocalFile(new Path(source), new Path(dest));
+        }
+        else if(isHDFS(source) && isLocal(dest)) {
+            hdfs.copyToLocalFile(new Path(source), new Path(dest));
+        }
+        else if(isHDFS(source) && isHDFS(dest)) {
+            FileUtil.copy(hdfs, new Path(source), hdfs, new Path(dest), false, hdfsConf);
+        }
+        else {  // both paths local
+            FileUtil.copy(local, new Path(source), local, new Path(dest), false, new Configuration());
+        }
+            
     }
 }

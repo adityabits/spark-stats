@@ -20,8 +20,14 @@ public class SimpleUnivariateStatsCalculator implements
     public ModelStats calculate(JavaSparkContext jsc, JavaRDD<String> data, PMML pmml, Params bindingParams) {
         List<DataField> dataFields= pmml.getDataDictionary().getDataFields();
         Accumulable<ColumnStateArray, String> accum= jsc.accumulable(new SimpleUnivariateColumnStateArray(dataFields, bindingParams), new SparkAccumulableWrapper());
+        //long time1= System.currentTimeMillis();
+        System.out.println("--------Accumulating-------------");
         data.foreach(new AccumulatorApplicator(accum));
         ColumnStateArray colStateArray= accum.value();
-        return colStateArray.getModelStats();
+        //long time2= System.currentTimeMillis();
+        System.out.println("--------Populating PMML-------------");
+        return  colStateArray.getModelStats();
+        //long time3= System.currentTimeMillis();
+        //System.out.println("" + (time2-time1) + ", " + (time3-time2));
     }
 }

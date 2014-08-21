@@ -27,10 +27,18 @@ public class DoubleRSampleUnitState extends RSampleUnitState<Double> implements 
     }
 
     public void addData(Object value) {
+        if(value instanceof Double) {
+            addData((Double) value);
+            return;
+        }
         Double dVal= Double.parseDouble(value.toString());
         super.addSample(dVal);
     }
 
+    public void addData(Double dVal) {
+        super.addSample(dVal);
+    }
+    
     public void sortSamples() {
         if(sorted==false)
             Collections.sort(this.samples);

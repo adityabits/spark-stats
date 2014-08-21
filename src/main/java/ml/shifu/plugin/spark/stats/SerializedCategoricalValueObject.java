@@ -13,10 +13,17 @@ public class SerializedCategoricalValueObject
     private Boolean isPositive;
     private String value;
     private Double weight;
+    
+    public SerializedCategoricalValueObject(String value, Double weight, Boolean isPositive) {
+        this.isPositive= isPositive;
+        this.weight= weight;
+        this.value= value;
+    }
+    
     public SerializedCategoricalValueObject() {
         this.weight = 1.0;
     }
-
+    
     public Boolean getIsPositive() {
         return isPositive;
     }

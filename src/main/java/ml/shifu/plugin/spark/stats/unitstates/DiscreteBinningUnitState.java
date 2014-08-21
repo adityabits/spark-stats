@@ -20,15 +20,16 @@ import ml.shifu.core.util.Params;
 import ml.shifu.plugin.spark.stats.SerializedCategoricalValueObject;
 import ml.shifu.plugin.spark.stats.interfaces.UnitState;
 
-public class DiscreteBinningState implements UnitState {
-    
+public class DiscreteBinningUnitState implements UnitState {
+
+    private static final long serialVersionUID = 1L;
     private Map<String, Integer> categoryHistNeg;
     private Map<String, Integer> categoryHistPos;
     private Map<String, Double> categoryWeightPos;
     private Map<String, Double> categoryWeightNeg;
     private Set<String> categorySet;
     
-    public DiscreteBinningState() {
+    public DiscreteBinningUnitState() {
         this.categoryHistNeg= new HashMap<String, Integer>();
         this.categoryHistPos= new HashMap<String, Integer>();
         this.categoryWeightNeg= new HashMap<String, Double>();
@@ -37,14 +38,14 @@ public class DiscreteBinningState implements UnitState {
     }
     
     public UnitState getNewBlank() {
-        return new DiscreteBinningState();
+        return new DiscreteBinningUnitState();
     }
 
     public void merge(UnitState state) throws Exception {
-        if(!(state instanceof DiscreteBinningState))
+        if(!(state instanceof DiscreteBinningUnitState))
             throw new Exception("Expected DiscreteBinningState, got " + state.getClass().toString());
         // merge all maps
-        DiscreteBinningState newState= (DiscreteBinningState) state;
+        DiscreteBinningUnitState newState= (DiscreteBinningUnitState) state;
         for(String key: newState.getCategoryHistNeg().keySet())
             incMapCnt(this.categoryHistNeg, key, newState.getCategoryHistNeg().get(key));
         for(String key: newState.getCategoryHistPos().keySet())
