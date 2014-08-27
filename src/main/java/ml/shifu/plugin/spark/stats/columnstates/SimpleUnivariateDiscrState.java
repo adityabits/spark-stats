@@ -15,9 +15,10 @@ import ml.shifu.plugin.spark.stats.unitstates.HistogramUnitState;
 public class SimpleUnivariateDiscrState extends ColumnState {
     
     public SimpleUnivariateDiscrState(String name, Params parameters) {
+        int maxHistogramSize= Integer.parseInt(params.get("maxHistogramSize", "10000").toString());
         states= new ArrayList<UnitState>();
         states.add(new FrequencyUnitState());
-        states.add(new HistogramUnitState());
+        states.add(new HistogramUnitState(maxHistogramSize));
         params= parameters;
         fieldName= name;
     }

@@ -12,10 +12,12 @@ import ml.shifu.plugin.spark.stats.interfaces.ColumnStateArray;
 
 import org.dmg.pmml.DataField;
 import org.dmg.pmml.OpType;
-
-public class SimpleUnivariateColumnStateArray extends ColumnStateArray {
+/*
+ * Implementation of ColumnStateArray for Univariate stats.
+ */
+public class UnivariateColumnStateArray extends ColumnStateArray {
     
-    public SimpleUnivariateColumnStateArray(SimpleUnivariateColumnStateArray initValue) {
+    public UnivariateColumnStateArray(UnivariateColumnStateArray initValue) {
         // creates a blank copy of stateArray
         states= new ArrayList<ColumnState>();
         for(ColumnState s: initValue.getStateArray()) {
@@ -24,7 +26,7 @@ public class SimpleUnivariateColumnStateArray extends ColumnStateArray {
         delimiter= initValue.delimiter;
     }
     
-    public SimpleUnivariateColumnStateArray(List<DataField> dataFields, Params params) {
+    public UnivariateColumnStateArray(List<DataField> dataFields, Params params) {
         states= new ArrayList<ColumnState>();
         for(DataField field: dataFields) {
             if(field.getOptype().equals(OpType.CATEGORICAL))
@@ -38,13 +40,13 @@ public class SimpleUnivariateColumnStateArray extends ColumnStateArray {
     }
 
     public void checkClass(ColumnStateArray stateArray) throws Exception {
-        if(!(stateArray instanceof SimpleUnivariateColumnStateArray))
+        if(!(stateArray instanceof UnivariateColumnStateArray))
             throw new Exception("Expected SimpleUnivariateColumnStateArray, got " + stateArray.getClass().toString());
 
     }
     
     @Override
     public ColumnStateArray getNewBlank() throws Exception {
-        return new SimpleUnivariateColumnStateArray(this);
+        return new UnivariateColumnStateArray(this);
     }
 }

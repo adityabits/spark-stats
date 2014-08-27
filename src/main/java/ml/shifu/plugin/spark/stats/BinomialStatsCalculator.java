@@ -14,6 +14,9 @@ import ml.shifu.core.util.Params;
 import ml.shifu.plugin.spark.stats.interfaces.ColumnStateArray;
 import ml.shifu.plugin.spark.stats.interfaces.SparkStatsCalculator;
 
+/*
+ * Implementation of SparkStatsCalculator for Binomial Stats.
+ */
 public class BinomialStatsCalculator implements SparkStatsCalculator {
 
     public ModelStats calculate(JavaSparkContext jsc, JavaRDD<String> data, PMML pmml, Params bindingParams) {

@@ -1,6 +1,3 @@
-/*
- * This class holds an array of states for every column in the table.
- */
 package ml.shifu.plugin.spark.stats.interfaces;
 
 import java.util.List;
@@ -8,6 +5,11 @@ import java.util.List;
 import org.dmg.pmml.ModelStats;
 
 import com.google.common.base.Splitter;
+
+/*
+ * This class holds an array of states for every column in the table.
+ * Two instances exist for Univariate and Binomial Stats.
+ */
 
 public abstract class ColumnStateArray implements java.io.Serializable {
 

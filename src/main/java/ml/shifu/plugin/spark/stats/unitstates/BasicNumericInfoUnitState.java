@@ -38,8 +38,7 @@ public class BasicNumericInfoUnitState implements UnitState {
         this.min= Math.min(this.min, newState.getMin());
         this.n= this.n + newState.getN();
         this.sum= this.sum + newState.getSum();
-        this.sumSqr= this.sumSqr + newState.getSumSqr();
-        
+        this.sumSqr= this.sumSqr + newState.getSumSqr();        
     }
 
     public void addData(Object value) {
@@ -99,7 +98,7 @@ public class BasicNumericInfoUnitState implements UnitState {
             univariateStats.withNumericInfo(numInfo);
             return;
         }
-            
+        
         numInfo.setMean(sum/n);
         Double EPS= 1e-6;
         double stdDev = Math.sqrt((this.sumSqr - (this.sum * this.sum) / this.n + EPS)

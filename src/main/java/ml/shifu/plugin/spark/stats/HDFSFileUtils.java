@@ -1,30 +1,35 @@
-/*
- * Contains utils for dealing with HDFS or local filesystems specific to the spark normalization code.
- */
 package ml.shifu.plugin.spark.stats;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.FileUtil;
 import org.apache.hadoop.fs.LocalFileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.fs.PathFilter;
 
+// TODO: Improve exception handling
+
+/**
+ * Contains utils for dealing with HDFS or local filesystems specific to the spark stats code.
+ * Considers all paths without any scheme prefix to be local filesystem paths.
+ */
 public class HDFSFileUtils {
 
     private Configuration hdfsConf;
 
-    // Reads core-site.xml and hdfs-site.xml from provided hadoopConfPath and
-    // creates a Configuration object
-    // that is used to create instance of HDFS FileSystem.
-    // FileSystem instance is created whenever required and then closed to avoid
-    // hoarding of resource.
+    /**
+     * Reads the "core-site.xml" and "hdfs-site.xml" files in the provided path.
+     * Forms a Configuration object corresponding to HDFS.
+     * Throws IOException if configuration files not found.
+     * 
+     * @param hadoopConfPath Path to the hadoop configuration directory
+     * 
+     */
     public HDFSFileUtils(String hadoopConfPath) throws IOException {
         this.hdfsConf = new Configuration();
-        // TODO: use a path joiner(?)
         Path coreSitePath = new Path(hadoopConfPath + "/" + "core-site.xml");
         Path hdfsSitePath = new Path(hadoopConfPath + "/" + "hdfs-site.xml");
         this.hdfsConf.addResource(coreSitePath);
@@ -39,9 +44,7 @@ public class HDFSFileUtils {
         }
 
         if (hdfs instanceof LocalFileSystem) {
-            System.out
-                    .println("ERROR: Could not create instance of hdfs FileSystem. Please check hadoop configuration files, got path " + hadoopConfPath);
-            throw new IOException();
+            throw new IOException("ERROR: Could not create instance of hdfs FileSystem. Please check hadoop configuration files, got path " + hadoopConfPath);
         }
 
         if (hdfs != null)
@@ -49,10 +52,17 @@ public class HDFSFileUtils {
     }
 
 
-    // deletes files from either local/ hdfs filesystems
-    public boolean delete(String strPath) {
+    /**
+     * Deletes files from HDFS/ local filesystem.
+     * Assumes a path to be HDFS if "file:" schema not present.
+     * @param strPath Path to the file on HDFS. Assumed to be an HDFS path in absence of schema.
+     * @return success has a value of true if deletion was successful 
+     * @throws IOException 
+     * @throws URISyntaxException 
+     */
+    public boolean delete(String strPath) throws IOException, URISyntaxException {
+        strPath= fullDefaultLocal(strPath);
         Path p = new Path(strPath);
-        System.out.println("Deleting file " + p.toString());
         FileSystem fs = null;
         try {
             fs = p.getFileSystem(this.hdfsConf);
@@ -76,7 +86,11 @@ public class HDFSFileUtils {
         return true;
     }
 
-    // gets full URI of file on HDFS
+    /**
+     * Returns the URI for HDFS root directory based on the Configuration object for this instance.
+     * @return HDFSUri A String which is the URI for HDFS root directory.
+     * @throws IOException
+     */
     public String getHDFSUri() throws IOException {
         FileSystem hdfs = FileSystem.get(this.hdfsConf);
         String Uri = hdfs.getUri().toString();
@@ -84,23 +98,21 @@ public class HDFSFileUtils {
         return Uri;
     }
 
-    public String uploadToHDFS(String localPath, String HDFSDir)
-            throws Exception {
-        FileSystem fs = FileSystem.get(this.hdfsConf);
-        String basename = new Path(localPath).getName().toString();
-        Path HDFSPath = new Path(HDFSDir + "/" + basename);
-        fs.copyFromLocalFile(new Path(localPath), HDFSPath);
-        fs.close();
-        return HDFSPath.toString();
-    }
-    
-    /*
-     *  uploads localPath to HDFSDir if localPath is on the local filesystem, and returns path of file on HDFS. Treats localPath as local if no scheme is specified.
+    /**
+     *  Uploads localPath to HDFSDir if localPath is on the local filesystem, and returns path of file on HDFS. Treats localPath as local if no scheme is specified.
+     * @param localPath
+     * @param HDFSDir
+     * @return
+     * @throws Exception
      */
     public String uploadToHDFSIfLocal(String localPath, String HDFSDir)
             throws Exception {
-        if (localPath.startsWith("hdfs:"))
+        localPath= fullDefaultLocal(localPath);
+        HDFSDir= fullDefaultLocal(HDFSDir);
+        
+        if (isHDFS(localPath))
             return localPath;
+        
         String basename = new Path(localPath).getName().toString();
         System.out.println("Uploading " + basename + " to HDFS");
         Path HDFSPath = new Path(HDFSDir + "/" + basename);
@@ -109,9 +121,12 @@ public class HDFSFileUtils {
         hdfs.close();
         return relativeToFullHDFSPath(HDFSPath.toString());
     }
+    
 
-    /*
-     *  gets home dir of HDFS filesystem
+    /**
+     * Returns the home directory for the HDFS filesystem.
+     * @return homeDir Home directory URI string.
+     * @throws IOException
      */
     public String getHDFSHomeDir() throws IOException {
         FileSystem hdfs = FileSystem.get(this.hdfsConf);
@@ -120,26 +135,100 @@ public class HDFSFileUtils {
         return homeDir;
     }
 
-    public String relativeToFullHDFSPath(String relPath) throws IOException {
-        if (relPath.startsWith("hdfs:") || relPath.startsWith("file:"))
+    /**
+     * Converts path to full URI. Assumes a path to be local if no schema present.
+     * @param path The path to be converted to full URI.
+     * @return fullPath The full URI in string format.
+     * @throws IOException 
+     * @throws URISyntaxException 
+     */
+    public String fullDefaultLocal(String path) throws IOException, URISyntaxException {
+        if(path.startsWith("file:"))
+            return path;
+        else if(path.startsWith("hdfs:"))
+            return relativeToFullHDFSPath(path);
+        else    // convert local path to full path
+            return relativeToFullLocalPath(path);
+    }
+    
+    
+    /**
+     * Converts a relative HDFS path to it's full path.
+     * @param relPath  The HDFS path to be converted to full URI.
+     * @return fullPath The full URI for relPath in String format.
+     * @throws IOException
+     * @throws URISyntaxException 
+     */
+    public String relativeToFullHDFSPath(String relPath) throws IOException, URISyntaxException {
+        // TODO: convert only "hdfs:" schema to full URI if absent
+        if(relPath.startsWith("file:"))
             return relPath;
+        else if (relPath.startsWith("hdfs:")) {
+            // make sure path contains authority, port etc.
+            URI uri= new URI(relPath);
+            URI hdfsURI= new URI(getHDFSUri());
+            URI fullURI= new URI(hdfsURI.getScheme(), hdfsURI.getAuthority(), uri.getPath(), null, null);
+            return fullURI.toString();
+        }
         if (relPath.startsWith("/")) {
             // relPath relative to root
             return this.getHDFSUri() + relPath;
         } else {
             // assume that path is relative to home
+            // if path starts with ~/ remove that portion
+            if(relPath.startsWith("~"))
+                if(relPath.length() > 2)
+                    relPath= relPath.substring(2);
+                else
+                    relPath= "";
+
             return this.getHDFSHomeDir() + "/" + relPath;
         }
     }
 
+    
+    /**
+     * Converts a relative local path to it's full path.
+     * @param relPath  The local path to be converted to full URI.
+     * @return fullPath The full URI for relPath in String format.
+     * @throws IOException
+     * @throws URISyntaxException 
+     */
+    public String relativeToFullLocalPath(String path) throws IOException {
+        if(path.startsWith("file:") || path.startsWith("hdfs:"))
+            return path;
+        if(path.startsWith("/"))
+            return "file://" + path;
+        else if(path.startsWith("~")) {
+            // if path starts with ~/ remove that portion
+            if(path.startsWith("~"))
+                if(path.length() > 2)
+                    path= path.substring(2);
+                else
+                    path= "";
+            FileSystem localFS= FileSystem.get(new Configuration());
+            Path homePath= localFS.getHomeDirectory();
+            localFS.close();
+            return homePath.toString() + "/" + path;            
+        }
+        else {   // path is relative to CWD
+            // get CWD
+            String workingDir = System.getProperty("user.dir");
+            // add schema to local path
+            return relativeToFullLocalPath(workingDir + "/" + path);
+        }
+    }
 
-    // concatenates all files in dirpath to target. Currently does not use
-    // PathFilter.
-    // However, all extraneous files created in output path by Spark are empty,
-    // so filter not necessary.
-    public void concat(String target, String dirpath, PathFilter filter)
+
+    /**
+     * Concatenates all files in dirpath to target file.
+     * @param target File to which files in dirpath should be concatenated to.
+     * @param dirpath Source directory for files to be concatenated.
+     * @throws IllegalArgumentException
+     * @throws IOException
+     */
+    public void concat(String target, String dirpath)
             throws IllegalArgumentException, IOException {
-        // now concatenate
         Path targetPath = new Path(target);
         FileSystem targetFS = targetPath.getFileSystem(this.hdfsConf);
         FileSystem hdfs = FileSystem.get(this.hdfsConf);
@@ -150,52 +239,76 @@ public class HDFSFileUtils {
         targetFS.close();
         hdfs.close();
     }
-
-    public void createEmptyFile(String strPath) throws IOException {
+    
+    /**
+     * "touches" an empty file in local/ HDFS filesystem.
+     * @param strPath File to be created. Default local.
+     * @throws IOException
+     * @throws URISyntaxException 
+     */
+    public void createEmptyFile(String strPath) throws IOException, URISyntaxException {
+        strPath= fullDefaultLocal(strPath);
         Path path = new Path(strPath);
         FileSystem fs = path.getFileSystem(this.hdfsConf);
         fs.create(path);
     }
     
-    public String fullPath(String path) throws IOException {
-        if(path.startsWith("hdfs") || path.startsWith("file"))
-            return path;
-        // path is local. 
-        else if(path.startsWith("/"))
-            return "file://" + path;
-        else if(path.startsWith("."))
-            return path;    // TODO: convert to full path by getting current working dir
-        else {   // path is relative to home of user
-            // if path starts with ~/ remote that portion
-            if(path.startsWith("~"))
-                if(path.length() > 2)
-                    path= path.substring(2);
-                else
-                    path= "";
-            FileSystem localFS= FileSystem.get(new Configuration());
-            Path homePath= localFS.getHomeDirectory();
-            localFS.close();
-            return homePath.toString() + "/" + path;
-        }
+    /**
+     * Returns Configuration object which contains HDFS configuration.
+     * @return hdfsConf Configuration object
+     */
+    public Configuration getHDFSConf() {
+        return this.hdfsConf;
     }
     
-    /*
-     * Checks if a path is local.In absence of a schema, path is considered local by default.
+    /**
+     * Returns boolean indicating whether a path is local or HDFS. This class will contain logic indicating whether 
+     * paths without schema should be considered local or HDFS by default.
+     * @param path
+     * @return isLocal true if path is local
      */
     public boolean isLocal(String path) {
         return !isHDFS(path);
     }
     
+    /**
+     * Returns boolean indicating whether a path is local or HDFS. This class will contain logic indicating whether 
+     * paths without schema should be considered local or HDFS by default.
+     * @param path
+     * @return isLocal true if path is HDFS
+     */
     public boolean isHDFS(String path) {
         return path.startsWith("hdfs:");
     }
     
-    /*
-     * Universal copy method which copies file from local/hdfs to local/hdfs
+    /**
+     * Checks if a path exists on HDFS/ local FS. Default local.
+     * @param strPath
+     * @return isExists boolean which is true if path exists.
+     * @throws IllegalArgumentException
+     * @throws IOException
+     * @throws URISyntaxException
      */
-    public void copy(String source, String dest) throws IOException {
-        source= fullPath(source);
-        dest= fullPath(dest);
+    public boolean exists(String strPath) throws IllegalArgumentException, IOException, URISyntaxException {
+        strPath= fullDefaultLocal(strPath);
+        Path path= new Path(strPath);
+        FileSystem fs= path.getFileSystem(this.hdfsConf);
+        boolean isExists= fs.exists(path);
+        fs.close();
+        return isExists;        
+    }
+    
+    /**
+     * Copies file from/to local/HDFS filesystem paths. Both paths default to local.
+     * @param source 
+     * @param dest
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    
+    public void copy(String source, String dest) throws IOException, URISyntaxException {
+        source= fullDefaultLocal(source);
+        dest= fullDefaultLocal(dest);
         FileSystem hdfs= FileSystem.get(hdfsConf);
         FileSystem local= FileSystem.get(new Configuration());
         
@@ -210,7 +323,6 @@ public class HDFSFileUtils {
         }
         else {  // both paths local
             FileUtil.copy(local, new Path(source), local, new Path(dest), false, new Configuration());
-        }
-            
+        }            
     }
 }

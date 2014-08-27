@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import ml.shifu.core.container.NumericalValueObject;
-
+/*
+ * Serialized version of ml.shifu.core.container.NumericalValueObject
+ */
 public class SerializedNumericalValueObject
         implements Serializable {
 
@@ -13,6 +15,11 @@ public class SerializedNumericalValueObject
     private Boolean isPositive;
     private Double value;
     private Double weight;
+    public SerializedNumericalValueObject(Double value, Boolean isPositive, Double weight) {
+        this.isPositive= isPositive;
+        this.value= value;
+        this.weight= weight;
+    }
 
     public SerializedNumericalValueObject() {
         this.weight = 1.0;

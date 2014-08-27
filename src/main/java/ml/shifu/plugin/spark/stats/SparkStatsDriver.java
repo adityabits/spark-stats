@@ -1,16 +1,9 @@
-/*
- * Class called by spark-submit script. Needs a main method.
- * Arguments:
- *  1. HDFS Uri
- *  2. HDFS path to Input file
- *  3. HDFS path to PMML XML
- *  4. HDFS path to Request json
- */
 package ml.shifu.plugin.spark.stats;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import ml.shifu.core.di.module.SimpleModule;
 import ml.shifu.core.di.service.UnivariateStatsService;
@@ -36,6 +29,15 @@ import org.dmg.pmml.PMML;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+/*
+ * Class called by spark-submit script. Needs a main method.
+ * Arguments:
+ *  1. HDFS Uri
+ *  2. HDFS path to Input file
+ *  3. HDFS path to PMML XML
+ *  4. HDFS path to Request json
+ */
+
 public class SparkStatsDriver {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
@@ -55,7 +57,7 @@ public class SparkStatsDriver {
 
         // TODO: Convert pathHDFSTmp to full hdfs path
         String pathHDFSTmp = (String) params.get("pathHDFSTmp",
-                "ml/shifu/plugin/spark/tmp");
+                "hdfs://ml/shifu/plugin/spark/tmp");
         
         String appName = (String) params.get("SparkAppName", "spark-stats");
         SparkConf conf = new SparkConf().setAppName(appName);

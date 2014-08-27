@@ -5,6 +5,9 @@ import java.util.Comparator;
 
 import ml.shifu.core.container.CategoricalValueObject;
 
+/*
+ * Serialized version of ml.shifu.core.container.CategoricalValueObject 
+ */
 public class SerializedCategoricalValueObject
         implements Serializable {
 

@@ -1,9 +1,7 @@
 package ml.shifu.plugin.spark.stats.unitstates;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import org.dmg.pmml.NumericInfo;
 import org.dmg.pmml.Quantile;
@@ -85,8 +83,6 @@ public class DoubleRSampleUnitState extends RSampleUnitState<Double> implements 
         if(!(state instanceof DoubleRSampleUnitState))
             throw new Exception("Expected DoubleRSampleUnitState, got " + state.getClass().toString());
         
-        super.merge((DoubleRSampleUnitState) state);
-        
+        super.merge((DoubleRSampleUnitState) state);        
     }
-
 }

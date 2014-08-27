@@ -14,7 +14,6 @@ import org.dmg.pmml.Array;
 import org.dmg.pmml.DiscrStats;
 import org.dmg.pmml.UnivariateStats;
 
-import ml.shifu.core.container.CategoricalValueObject;
 import ml.shifu.core.util.PMMLUtils;
 import ml.shifu.core.util.Params;
 import ml.shifu.plugin.spark.stats.SerializedCategoricalValueObject;
@@ -147,7 +146,7 @@ public class DiscreteBinningUnitState implements UnitState {
         discrStats.withArrays(countArray);
 
         Map<String, String> extensionMap = new HashMap<String, String>();
-
+        
         extensionMap.put("BinCountPos", binCountPos.toString());
         extensionMap.put("BinCountNeg", binCountNeg.toString());
         extensionMap.put("BinWeightedCountPos", binWeightedPos.toString());
@@ -188,7 +187,12 @@ public class DiscreteBinningUnitState implements UnitState {
         }
 
         public int compare(String a, String b) {
-            return base.get(a).compareTo(base.get(b));
+            if(a.equals(b))
+                return 0;
+            
+            int isEquals= base.get(a).compareTo(base.get(b)); 
+            // prevent two doubles from being equal to each other to preserve consistency with .equals()
+            return (isEquals==0)?1:isEquals;
         }
     }
 

@@ -1,6 +1,3 @@
-/*
- * This class holds a collection of unit states to be maintained for a particular column in the table.
- */
 package ml.shifu.plugin.spark.stats.interfaces;
 
 import java.util.List;
@@ -10,6 +7,11 @@ import ml.shifu.core.util.Params;
 import org.dmg.pmml.FieldName;
 import org.dmg.pmml.UnivariateStats;
 
+/*
+ * This class holds a collection of unit states to be maintained for a particular column in the table.
+ * ColumnState has instantiations which should define the UnitStates they need in the constructor.
+ * 
+ */
 
 public abstract class ColumnState implements java.io.Serializable {
 

@@ -22,6 +22,10 @@ import ml.shifu.plugin.spark.stats.columnstates.SimpleUnivariateOrdinalState;
 import ml.shifu.plugin.spark.stats.interfaces.ColumnState;
 import ml.shifu.plugin.spark.stats.interfaces.ColumnStateArray;
 
+/*
+ * Implementation of ColumnStateArray for Binomial Stats. 
+ */
+
 public class BinomialColumnStateArray extends ColumnStateArray {
 
     private enum ColType {

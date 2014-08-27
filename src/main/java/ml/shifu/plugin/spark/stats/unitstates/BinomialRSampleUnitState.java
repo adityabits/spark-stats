@@ -5,14 +5,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.dmg.pmml.ContStats;
 import org.dmg.pmml.Interval;
 import org.dmg.pmml.NumericInfo;
 import org.dmg.pmml.UnivariateStats;
 
-import ml.shifu.core.container.CategoricalValueObject;
 import ml.shifu.core.container.ColumnBinningResult;
 import ml.shifu.core.container.NumericalValueObject;
 import ml.shifu.core.di.builtin.EqualPositiveColumnNumBinningCalculator;
@@ -23,6 +21,7 @@ import ml.shifu.core.util.PMMLUtils;
 import ml.shifu.core.util.Params;
 import ml.shifu.plugin.spark.stats.SerializedNumericalValueObject;
 import ml.shifu.plugin.spark.stats.interfaces.UnitState;
+
 /*
  * Expects data in the form of a SerializedNumericalValueObject
  */
@@ -112,7 +111,6 @@ public class BinomialRSampleUnitState extends RSampleUnitState<SerializedNumeric
         univariateStats.withContStats(contStats);
         
         // Compute NumericInfo stats
-        // TODO: optimize this code
         NumericInfo numInfo= univariateStats.getNumericInfo();
         if(numInfo==null)
             numInfo= new NumericInfo();

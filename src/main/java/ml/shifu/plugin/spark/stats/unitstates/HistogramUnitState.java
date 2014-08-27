@@ -13,13 +13,15 @@ import ml.shifu.plugin.spark.stats.interfaces.UnitState;
 
 public class HistogramUnitState implements UnitState {
     private Map<Object, Integer> histogram;
+    private int maxSize;
     
-    public HistogramUnitState() {
+    public HistogramUnitState(int maxSize) {
         this.histogram= new HashMap<Object, Integer>();
+        this.maxSize= maxSize;
     }
     
     public UnitState getNewBlank() {
-        return new HistogramUnitState();
+        return new HistogramUnitState(maxSize);
     }
 
     public void merge(UnitState state) throws Exception {
@@ -35,9 +37,10 @@ public class HistogramUnitState implements UnitState {
         return this.histogram;
     }
     
-    // TODO: add max value check(?)
     private void incMapCnt(Object key, int by) {
         int cnt = this.histogram.containsKey(key) ? this.histogram.get(key) : 0;
+        if(cnt==0 && this.histogram.size() >= maxSize)
+            return;
         this.histogram.put(key, cnt + by);
     }
 
@@ -62,23 +65,6 @@ public class HistogramUnitState implements UnitState {
 
         discrStats.withArrays(countArray, stringArray);
         univariateStats.withDiscrStats(discrStats);
-    }
-
-    public DiscrStats getDiscrStats() {
-        DiscrStats discrStats= new DiscrStats();
-        Array countArray = new Array();
-        countArray.setType(Array.Type.INT);
-        countArray.setN(this.histogram.size());
-        countArray.setValue(StringUtils.join(this.histogram.values(), " "));
-
-        Array stringArray = new Array();
-        stringArray.setType(Array.Type.STRING);
-        stringArray.setN(this.histogram.size());
-        stringArray.setValue(StringUtils.join(this.histogram.keySet(), " "));
-
-        discrStats.withArrays(countArray, stringArray);
-        return discrStats;
-
     }
 
 }

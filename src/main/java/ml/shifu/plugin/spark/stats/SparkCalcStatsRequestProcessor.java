@@ -14,7 +14,7 @@ public class SparkCalcStatsRequestProcessor implements RequestProcessor{
 	    String pathPMML = params.get("pathPMML", "model.xml").toString();
         String pathRequest= params.get("pathRequest", "request.json").toString();
         String pathInputData= params.get("pathInputData").toString();
-        String pathHDFSTmp= params.get("pathHDFSTmp", "ml/shifu/stats/tmp").toString();
+        String pathHDFSTmp= params.get("pathHDFSTmp", "hdfs://ml/shifu/stats/tmp").toString();
         String pathHadoopConf= params.get("pathHDFSConf", "/usr/lib/hadoop/etc/hadoop").toString();
         String sparkHome= params.get("sparkHome").toString();
         String pathToJar= params.get("pathToJar").toString();

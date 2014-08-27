@@ -11,7 +11,6 @@ import ml.shifu.plugin.spark.stats.unitstates.FrequencyUnitState;
 /*
  * Similar to SimpleUnivariateOrdinalState, with the exception that it recieves data in the form of CategoricalValueObjects
  * which it unpacks to consider only the value fields.
- * For now let it extend ColumnState, will think of forming BinomialColumnState later.
  * 
  */
 public class BinomialOrdinalState extends ColumnState {

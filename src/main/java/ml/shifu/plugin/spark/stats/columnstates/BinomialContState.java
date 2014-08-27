@@ -2,16 +2,12 @@ package ml.shifu.plugin.spark.stats.columnstates;
 
 import java.util.ArrayList;
 
-import ml.shifu.core.container.CategoricalValueObject;
-import ml.shifu.core.container.NumericalValueObject;
-import ml.shifu.core.container.RawValueObject;
 import ml.shifu.core.util.Params;
 import ml.shifu.plugin.spark.stats.SerializedNumericalValueObject;
 import ml.shifu.plugin.spark.stats.interfaces.ColumnState;
 import ml.shifu.plugin.spark.stats.interfaces.UnitState;
 import ml.shifu.plugin.spark.stats.unitstates.BasicNumericInfoUnitState;
 import ml.shifu.plugin.spark.stats.unitstates.BinomialRSampleUnitState;
-import ml.shifu.plugin.spark.stats.unitstates.DoubleRSampleUnitState;
 import ml.shifu.plugin.spark.stats.unitstates.FrequencyUnitState;
 /*
  * Expects data in the form of a NumericalValueObject.
@@ -55,5 +51,4 @@ public class BinomialContState extends ColumnState {
             System.out.println(e.getMessage());
         }
     }
-
 }

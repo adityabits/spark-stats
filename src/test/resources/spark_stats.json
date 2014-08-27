@@ -9,7 +9,7 @@
             "pathPMMLOutput": "./model.xml",
             "pathRequest": "./src/test/resources/spark_stats.json",
             "pathInputData": "hdfs:///user/apalnitkar/datasets/wdbc.data",
-            "pathHDFSTmp": "ml/shifu/spark/stats/tmp",
+            "pathHDFSTmp": "hdfs://ml/shifu/spark/stats/tmp",
             "pathHDFSConf": "/usr/local/hadoop/etc/hadoop/",
             "sparkHome": "/Users/apalnitkar/installations/spark-1.0.1-bin-hadoop2",
             "pathToJar": "./target/spark-stats-0.3.0-SNAPSHOT-jar-with-dependencies.jar",

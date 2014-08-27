@@ -14,20 +14,19 @@ import org.dmg.pmml.ModelStats;
 import org.dmg.pmml.PMML;
 import org.dmg.pmml.UnivariateStats;
 
-public class SimpleUnivariateStatsCalculator implements
+/*
+ * Implementation of SparkStatsCalculator for Univariate stats.
+ * Applies an accumulator (UnivariateColumnStateArray) over the RDD.
+ */
+
+public class UnivariateStatsCalculator implements
         SparkStatsCalculator {
 
     public ModelStats calculate(JavaSparkContext jsc, JavaRDD<String> data, PMML pmml, Params bindingParams) {
         List<DataField> dataFields= pmml.getDataDictionary().getDataFields();
-        Accumulable<ColumnStateArray, String> accum= jsc.accumulable(new SimpleUnivariateColumnStateArray(dataFields, bindingParams), new SparkAccumulableWrapper());
-        //long time1= System.currentTimeMillis();
-        System.out.println("--------Accumulating-------------");
+        Accumulable<ColumnStateArray, String> accum= jsc.accumulable(new UnivariateColumnStateArray(dataFields, bindingParams), new SparkAccumulableWrapper());
         data.foreach(new AccumulatorApplicator(accum));
         ColumnStateArray colStateArray= accum.value();
-        //long time2= System.currentTimeMillis();
-        System.out.println("--------Populating PMML-------------");
         return  colStateArray.getModelStats();
-        //long time3= System.currentTimeMillis();
-        //System.out.println("" + (time2-time1) + ", " + (time3-time2));
     }
 }
