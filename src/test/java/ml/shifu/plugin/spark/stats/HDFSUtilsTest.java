@@ -70,6 +70,6 @@ public class HDFSUtilsTest {
     
     @Test 
     public void fullDefaultLocalTest() throws IOException, URISyntaxException {
-        Assert.assertTrue(hdfsUtils.fullDefaultLocal("/home/user").equals("file:/home/user"));        
+        Assert.assertTrue(hdfsUtils.fullDefaultLocal("/home/user").equals("file:///home/user"));        
     }
 }

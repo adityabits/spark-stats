@@ -10,21 +10,20 @@ import ml.shifu.plugin.spark.stats.SerializedNumericalValueObject;
 
 
 /*
- * Maintains a reservoir sample. This class is not thread safe due to the use of sortSamples() method.
+ * Maintains a reservoir sample.
  */
+
 public class RSampleUnitState<T> implements Serializable {
 
     
     private static final long serialVersionUID = 1L;
     protected List<T> samples;
-    protected boolean sorted;
     protected int maxSize;
     protected Random intRand;
     protected int n;
     
     public RSampleUnitState(int maxSize) {
         this.samples= new ArrayList<T>();
-        this.sorted= false;
         this.maxSize= maxSize;
         this.intRand= new Random();
         this.n= 0;
@@ -32,13 +31,34 @@ public class RSampleUnitState<T> implements Serializable {
     
     
     public void merge(RSampleUnitState<T> otherState) throws Exception {
-        for(T otherSample: otherState.getSamples()) {
-            // TODO: NOT correct. Use weighted reservoir sampling based on n.
-            addSample(otherSample);
-        }
+        /*
+         * find number of elements to be taken from this and otherState, then use systematic sampling
+         * to sample that number of elements, and combine both samples into this.samples 
+         */
+        
+        int nSamplesForThis= (int)(maxSize * ((double)(this.n)/(this.n + otherState.n)));
+        int nSamplesForOther= maxSize - nSamplesForThis;
+        this.samples= systematicSample(nSamplesForThis);
+        this.samples.addAll(otherState.systematicSample(nSamplesForOther));
+        this.n+= otherState.n;        
         n+= otherState.n;
-        sorted= false;
     }
+    
+    public List<T> systematicSample(int numSamples) {
+        // samples n elements from the reservoir sample using systematic sampling
+        // select nSamplesForThis from this.samples
+        ArrayList<T> newSamples= new ArrayList<T>();
+        double interval= (double)this.samples.size()/numSamples;
+        Random rand= new Random();
+        int nextIntDist, currIndex= 0;
+        for(int i=0; i < numSamples; i++) {
+            nextIntDist= (int)(rand.nextDouble()*interval) + 1;
+            currIndex+= (nextIntDist)%this.samples.size();
+            newSamples.add(samples.get(currIndex));
+        }
+        return newSamples;
+    }
+    
     
     public List<T> getSamples() {
         return samples;

@@ -14,7 +14,7 @@ import ml.shifu.plugin.spark.stats.interfaces.UnitState;
 public class DoubleRSampleUnitState extends RSampleUnitState<Double> implements UnitState {
 
     private static final long serialVersionUID = 1L;
-
+    boolean sorted= false;
 
     public DoubleRSampleUnitState(int maximumSize) {
         super(maximumSize);
