@@ -8,10 +8,10 @@
             "pathPMML": "./src/test/resources/model.xml",
             "pathPMMLOutput": "./src/test/resources/generated/model.xml",
             "pathRequest": "./src/test/resources/spark_stats.json",
-            "pathInputData": "hdfs:///user/apalnitkar/datasets/wdbc.data",
-            "pathHDFSTmp": "hdfs://ml/shifu/spark/stats/tmp",
+            "pathInputData": "./src/test/resources/data/wdbc.data",
+            "pathHDFSTmp": "ml/shifu/spark/stats/tmp",
             "pathHDFSConf": "/usr/local/hadoop/etc/hadoop/",
-            "sparkHome": "/Users/apalnitkar/installations/spark-1.0.1-bin-hadoop2",
+            "sparkHome": "/usr/local/spark",
             "pathToJar": "./target/spark-stats-0.3.0-SNAPSHOT-jar-with-dependencies.jar",
             "sparkMode": "local"
         }

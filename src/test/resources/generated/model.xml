@@ -1,0 +1,1175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_2" version="4.2">
+    <DataDictionary numberOfFields="32">
+        <DataField name="id" optype="ordinal" dataType="string"/>
+        <DataField name="diagnosis" optype="categorical" dataType="string"/>
+        <DataField name="mean_radius" optype="continuous" dataType="double"/>
+        <DataField name="mean_texture" optype="continuous" dataType="double"/>
+        <DataField name="mean_perimeter" optype="continuous" dataType="double"/>
+        <DataField name="mean_area" optype="continuous" dataType="double"/>
+        <DataField name="mean_smoothness" optype="continuous" dataType="double"/>
+        <DataField name="mean_compactness" optype="continuous" dataType="double"/>
+        <DataField name="mean_concavity" optype="continuous" dataType="double"/>
+        <DataField name="mean_concave_points" optype="continuous" dataType="double"/>
+        <DataField name="mean_symmetry" optype="continuous" dataType="double"/>
+        <DataField name="mean_fractal_dimension" optype="continuous" dataType="double"/>
+        <DataField name="std_radius" optype="continuous" dataType="double"/>
+        <DataField name="std_texture" optype="continuous" dataType="double"/>
+        <DataField name="std_perimeter" optype="continuous" dataType="double"/>
+        <DataField name="std_area" optype="continuous" dataType="double"/>
+        <DataField name="std_smoothness" optype="continuous" dataType="double"/>
+        <DataField name="std_compactness" optype="continuous" dataType="double"/>
+        <DataField name="std_concavity" optype="continuous" dataType="double"/>
+        <DataField name="std_concave_points" optype="continuous" dataType="double"/>
+        <DataField name="std_symmetry" optype="continuous" dataType="double"/>
+        <DataField name="std_fractal_dimension" optype="continuous" dataType="double"/>
+        <DataField name="worst_radius" optype="continuous" dataType="double"/>
+        <DataField name="worst_texture" optype="continuous" dataType="double"/>
+        <DataField name="worst_perimeter" optype="continuous" dataType="double"/>
+        <DataField name="worst_area" optype="continuous" dataType="double"/>
+        <DataField name="worst_smoothness" optype="continuous" dataType="double"/>
+        <DataField name="worst_compactness" optype="continuous" dataType="double"/>
+        <DataField name="worst_concavity" optype="continuous" dataType="double"/>
+        <DataField name="worst_concave_points" optype="continuous" dataType="double"/>
+        <DataField name="worst_symmetry" optype="continuous" dataType="double"/>
+        <DataField name="worst_fractal_dimension" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <NeuralNetwork modelName="demoModel">
+        <MiningSchema>
+            <MiningField name="id" usageType="supplementary" optype="ordinal"/>
+            <MiningField name="diagnosis" usageType="target" optype="categorical"/>
+            <MiningField name="mean_radius" usageType="active" optype="continuous"/>
+            <MiningField name="mean_texture" usageType="active" optype="continuous"/>
+            <MiningField name="mean_perimeter" usageType="active" optype="continuous"/>
+            <MiningField name="mean_area" usageType="active" optype="continuous"/>
+            <MiningField name="mean_smoothness" usageType="active" optype="continuous"/>
+            <MiningField name="mean_compactness" usageType="active" optype="continuous"/>
+            <MiningField name="mean_concavity" usageType="active" optype="continuous"/>
+            <MiningField name="mean_concave_points" usageType="active" optype="continuous"/>
+            <MiningField name="mean_symmetry" usageType="active" optype="continuous"/>
+            <MiningField name="mean_fractal_dimension" usageType="active" optype="continuous"/>
+            <MiningField name="std_radius" usageType="active" optype="continuous"/>
+            <MiningField name="std_texture" usageType="active" optype="continuous"/>
+            <MiningField name="std_perimeter" usageType="active" optype="continuous"/>
+            <MiningField name="std_area" usageType="active" optype="continuous"/>
+            <MiningField name="std_smoothness" usageType="active" optype="continuous"/>
+            <MiningField name="std_compactness" usageType="active" optype="continuous"/>
+            <MiningField name="std_concavity" usageType="active" optype="continuous"/>
+            <MiningField name="std_concave_points" usageType="active" optype="continuous"/>
+            <MiningField name="std_symmetry" usageType="active" optype="continuous"/>
+            <MiningField name="std_fractal_dimension" usageType="active" optype="continuous"/>
+            <MiningField name="worst_radius" usageType="active" optype="continuous"/>
+            <MiningField name="worst_texture" usageType="active" optype="continuous"/>
+            <MiningField name="worst_perimeter" usageType="active" optype="continuous"/>
+            <MiningField name="worst_area" usageType="active" optype="continuous"/>
+            <MiningField name="worst_smoothness" usageType="active" optype="continuous"/>
+            <MiningField name="worst_compactness" usageType="active" optype="continuous"/>
+            <MiningField name="worst_concavity" usageType="active" optype="continuous"/>
+            <MiningField name="worst_concave_points" usageType="active" optype="continuous"/>
+            <MiningField name="worst_symmetry" usageType="active" optype="continuous"/>
+            <MiningField name="worst_fractal_dimension" usageType="active" optype="continuous"/>
+        </MiningSchema>
+        <ModelStats>
+            <UnivariateStats field="id">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+            </UnivariateStats>
+            <UnivariateStats field="diagnosis">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="569.0"/>
+                <DiscrStats>
+                    <Extension name="BinCountPos" value="[0, 212]"/>
+                    <Extension name="BinWeightedCountPos" value="[0.0, 212.0]"/>
+                    <Extension name="BinCountNeg" value="[357, 0]"/>
+                    <Extension name="BinPosRate" value="[0.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[357.0, 0.0]"/>
+                    <Array n="2" type="int">357 212</Array>
+                </DiscrStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_radius">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="6.981" maximum="28.11" mean="14.127291739894563" standardDeviation="3.5240488264618444" median="13.37" interQuartileRange="4.08">
+                    <Quantile quantileLimit="0.0" quantileValue="6.981"/>
+                    <Quantile quantileLimit="10.0" quantileValue="10.26"/>
+                    <Quantile quantileLimit="20.0" quantileValue="11.36"/>
+                    <Quantile quantileLimit="30.0" quantileValue="12.0"/>
+                    <Quantile quantileLimit="40.0" quantileValue="12.72"/>
+                    <Quantile quantileLimit="50.0" quantileValue="13.37"/>
+                    <Quantile quantileLimit="60.0" quantileValue="14.06"/>
+                    <Quantile quantileLimit="70.0" quantileValue="15.06"/>
+                    <Quantile quantileLimit="80.0" quantileValue="17.08"/>
+                    <Quantile quantileLimit="90.0" quantileValue="19.53"/>
+                    <Quantile quantileLimit="100.0" quantileValue="28.11"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="8038.429000000006" totalSquaresSum="120615.17824700009">
+                    <Extension name="BinCountPos" value="[4047, 3869, 3868, 3871, 3868, 3865, 4046, 3868, 3865, 2109]"/>
+                    <Extension name="BinWeightedCountPos" value="[4047.0, 3869.0, 3868.0, 3871.0, 3868.0, 3865.0, 4046.0, 3868.0, 3865.0, 2109.0]"/>
+                    <Extension name="BinCountNeg" value="[49555, 8779, 2985, 878, 352, 175, 0, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.07550091414499459, 0.3058981657179001, 0.5644243397052385, 0.8151189724152453, 0.9165876777251185, 0.9566831683168316, 1.0, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[49555.0, 8779.0, 2985.0, 878.0, 352.0, 175.0, 0.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="71.76489997460433"/>
+                    <Extension name="BinWOE" value="[-1.9847128355750643, -0.2989719683813445, 0.7795322912042542, 2.004016012356899, 2.917256125714848, 3.6153254138155493, 20.805229981683905, 20.760238820571796, 20.759462925020884, 20.153715145281158]"/>
+                    <Extension name="IV" value="9.94349478155304"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="13.62"/>
+                    <Interval closure="openClosed" leftMargin="13.62" rightMargin="14.74"/>
+                    <Interval closure="openClosed" leftMargin="14.74" rightMargin="15.5"/>
+                    <Interval closure="openClosed" leftMargin="15.5" rightMargin="16.46"/>
+                    <Interval closure="openClosed" leftMargin="16.46" rightMargin="17.57"/>
+                    <Interval closure="openClosed" leftMargin="17.57" rightMargin="18.63"/>
+                    <Interval closure="openClosed" leftMargin="18.63" rightMargin="19.55"/>
+                    <Interval closure="openClosed" leftMargin="19.55" rightMargin="20.47"/>
+                    <Interval closure="openClosed" leftMargin="20.47" rightMargin="23.09"/>
+                    <Interval closure="openClosed" leftMargin="23.09" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_texture">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="9.71" maximum="39.28" mean="19.28964850615117" standardDeviation="4.301035768371497" median="18.84" interQuartileRange="5.629999999999999">
+                    <Quantile quantileLimit="0.0" quantileValue="9.71"/>
+                    <Quantile quantileLimit="10.0" quantileValue="14.07"/>
+                    <Quantile quantileLimit="20.0" quantileValue="15.65"/>
+                    <Quantile quantileLimit="30.0" quantileValue="16.84"/>
+                    <Quantile quantileLimit="40.0" quantileValue="17.91"/>
+                    <Quantile quantileLimit="50.0" quantileValue="18.84"/>
+                    <Quantile quantileLimit="60.0" quantileValue="19.97"/>
+                    <Quantile quantileLimit="70.0" quantileValue="21.28"/>
+                    <Quantile quantileLimit="80.0" quantileValue="22.44"/>
+                    <Quantile quantileLimit="90.0" quantileValue="25.0"/>
+                    <Quantile quantileLimit="100.0" quantileValue="39.28"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="10975.810000000016" totalSquaresSum="222226.89710000003">
+                    <Extension name="BinCountPos" value="[3870, 3871, 4042, 3865, 3870, 3870, 3869, 3869, 3867, 2283]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3871.0, 4042.0, 3865.0, 3870.0, 3870.0, 3869.0, 3869.0, 3867.0, 2283.0]"/>
+                    <Extension name="BinCountNeg" value="[30055, 11773, 5449, 2810, 3340, 1582, 1756, 1404, 1927, 2628]"/>
+                    <Extension name="BinPosRate" value="[0.11407516580692705, 0.24744310917923804, 0.4258771467706248, 0.5790262172284644, 0.536754507628294, 0.7098312545854732, 0.6878222222222222, 0.7337379101080979, 0.6674145667932344, 0.4648747709224191]"/>
+                    <Extension name="BinWeightedCountNeg" value="[30055.0, 11773.0, 5449.0, 2810.0, 3340.0, 1582.0, 1756.0, 1404.0, 1927.0, 2628.0]"/>
+                    <Extension name="KS" value="45.919084932962214"/>
+                    <Extension name="BinWOE" value="[-1.529380067099552, -0.5919014404749958, 0.22170197474695047, 0.8391716590213861, 0.6676781607336973, 1.4149590962899536, 1.3103520394922983, 1.534065228206064, 1.2169090824972502, 0.3796617277666763]"/>
+                    <Extension name="IV" value="1.143257303285855"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="17.26"/>
+                    <Interval closure="openClosed" leftMargin="17.26" rightMargin="18.82"/>
+                    <Interval closure="openClosed" leftMargin="18.82" rightMargin="19.86"/>
+                    <Interval closure="openClosed" leftMargin="19.86" rightMargin="20.68"/>
+                    <Interval closure="openClosed" leftMargin="20.68" rightMargin="21.57"/>
+                    <Interval closure="openClosed" leftMargin="21.57" rightMargin="22.22"/>
+                    <Interval closure="openClosed" leftMargin="22.22" rightMargin="23.33"/>
+                    <Interval closure="openClosed" leftMargin="23.33" rightMargin="24.89"/>
+                    <Interval closure="openClosed" leftMargin="24.89" rightMargin="27.54"/>
+                    <Interval closure="openClosed" leftMargin="27.54" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_perimeter">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="43.79" maximum="188.5" mean="91.96903339191566" standardDeviation="24.298981038790973" median="86.24" interQuartileRange="28.929999999999993">
+                    <Quantile quantileLimit="0.0" quantileValue="43.79"/>
+                    <Quantile quantileLimit="10.0" quantileValue="65.75"/>
+                    <Quantile quantileLimit="20.0" quantileValue="73.28"/>
+                    <Quantile quantileLimit="30.0" quantileValue="77.32"/>
+                    <Quantile quantileLimit="40.0" quantileValue="81.92"/>
+                    <Quantile quantileLimit="50.0" quantileValue="86.24"/>
+                    <Quantile quantileLimit="60.0" quantileValue="91.43"/>
+                    <Quantile quantileLimit="70.0" quantileValue="98.22"/>
+                    <Quantile quantileLimit="80.0" quantileValue="111.8"/>
+                    <Quantile quantileLimit="90.0" quantileValue="129.1"/>
+                    <Quantile quantileLimit="100.0" quantileValue="188.5"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="52330.38000000001" totalSquaresSum="5148144.657999998">
+                    <Extension name="BinCountPos" value="[3872, 3868, 3870, 3868, 3869, 3866, 3868, 3869, 3865, 2461]"/>
+                    <Extension name="BinWeightedCountPos" value="[3872.0, 3868.0, 3870.0, 3868.0, 3869.0, 3866.0, 3868.0, 3869.0, 3865.0, 2461.0]"/>
+                    <Extension name="BinCountNeg" value="[51487, 7898, 2110, 1054, 175, 0, 0, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.06994345996134323, 0.32874383817780045, 0.6471571906354515, 0.7858594067452255, 0.9567260138476755, 1.0, 1.0, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[51487.0, 7898.0, 2110.0, 1054.0, 175.0, 0.0, 0.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="73.91264830786797"/>
+                    <Extension name="BinWOE" value="[-2.067163716769532, -0.19347752350850725, 1.126961019139594, 1.820539584079912, 3.616359807493543, 20.759721623767387, 20.760238820571796, 20.760497318698878, 20.759462925020884, 20.308069014940635]"/>
+                    <Extension name="IV" value="12.044361124715415"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="88.44"/>
+                    <Interval closure="openClosed" leftMargin="88.44" rightMargin="96.45"/>
+                    <Interval closure="openClosed" leftMargin="96.45" rightMargin="102.6"/>
+                    <Interval closure="openClosed" leftMargin="102.6" rightMargin="109.0"/>
+                    <Interval closure="openClosed" leftMargin="109.0" rightMargin="115.1"/>
+                    <Interval closure="openClosed" leftMargin="115.1" rightMargin="122.0"/>
+                    <Interval closure="openClosed" leftMargin="122.0" rightMargin="129.1"/>
+                    <Interval closure="openClosed" leftMargin="129.1" rightMargin="134.4"/>
+                    <Interval closure="openClosed" leftMargin="134.4" rightMargin="147.3"/>
+                    <Interval closure="openClosed" leftMargin="147.3" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_area">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="143.5" maximum="2501.0" mean="654.8891036906857" standardDeviation="351.9141291816553" median="551.1" interQuartileRange="362.40000000000003">
+                    <Quantile quantileLimit="0.0" quantileValue="143.5"/>
+                    <Quantile quantileLimit="10.0" quantileValue="321.6"/>
+                    <Quantile quantileLimit="20.0" quantileValue="396.5"/>
+                    <Quantile quantileLimit="30.0" quantileValue="443.3"/>
+                    <Quantile quantileLimit="40.0" quantileValue="496.4"/>
+                    <Quantile quantileLimit="50.0" quantileValue="551.1"/>
+                    <Quantile quantileLimit="60.0" quantileValue="609.9"/>
+                    <Quantile quantileLimit="70.0" quantileValue="701.9"/>
+                    <Quantile quantileLimit="80.0" quantileValue="918.6"/>
+                    <Quantile quantileLimit="90.0" quantileValue="1191.0"/>
+                    <Quantile quantileLimit="100.0" quantileValue="2501.0"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="372631.9000000002" totalSquaresSum="3.143757098500002E8">
+                    <Extension name="BinCountPos" value="[3871, 3869, 3868, 3871, 3868, 3865, 3870, 3867, 3866, 2461]"/>
+                    <Extension name="BinWeightedCountPos" value="[3871.0, 3869.0, 3868.0, 3871.0, 3868.0, 3865.0, 3870.0, 3867.0, 3866.0, 2461.0]"/>
+                    <Extension name="BinCountNeg" value="[50257, 7726, 3336, 878, 352, 175, 0, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.0715156665681348, 0.33367830961621386, 0.5369239311493614, 0.8151189724152453, 0.9165876777251185, 0.9566831683168316, 1.0, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[50257.0, 7726.0, 3336.0, 878.0, 352.0, 175.0, 0.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="71.67745922553904"/>
+                    <Extension name="BinWOE" value="[-2.0432425066909072, -0.17120072677874054, 0.6683595537734099, 2.004016012356899, 2.917256125714848, 3.6153254138155493, 20.760755750021943, 20.75998025560616, 20.759721623767387, 20.308069014940635]"/>
+                    <Extension name="IV" value="10.096069271372603"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="573.2"/>
+                    <Interval closure="openClosed" leftMargin="573.2" rightMargin="664.9"/>
+                    <Interval closure="openClosed" leftMargin="664.9" rightMargin="744.9"/>
+                    <Interval closure="openClosed" leftMargin="744.9" rightMargin="832.9"/>
+                    <Interval closure="openClosed" leftMargin="832.9" rightMargin="955.1"/>
+                    <Interval closure="openClosed" leftMargin="955.1" rightMargin="1076.0"/>
+                    <Interval closure="openClosed" leftMargin="1076.0" rightMargin="1174.0"/>
+                    <Interval closure="openClosed" leftMargin="1174.0" rightMargin="1288.0"/>
+                    <Interval closure="openClosed" leftMargin="1288.0" rightMargin="1509.0"/>
+                    <Interval closure="openClosed" leftMargin="1509.0" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_smoothness">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.05263" maximum="0.1634" mean="0.096360281195079" standardDeviation="0.014064190728096667" median="0.09587" interQuartileRange="0.018930000000000002">
+                    <Quantile quantileLimit="0.0" quantileValue="0.05263"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.07963"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.0842"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.08791"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.09179"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.09587"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.09934"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.1033"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.1075"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.1149"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.1634"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="54.82899999999995" totalSquaresSum="5.395688087399989">
+                    <Extension name="BinCountPos" value="[3869, 3870, 3869, 3869, 3866, 3865, 3868, 3868, 3868, 2464]"/>
+                    <Extension name="BinWeightedCountPos" value="[3869.0, 3870.0, 3869.0, 3869.0, 3866.0, 3865.0, 3868.0, 3868.0, 3868.0, 2464.0]"/>
+                    <Extension name="BinCountNeg" value="[25652, 7024, 6323, 4748, 5273, 4394, 3691, 2108, 1757, 1754]"/>
+                    <Extension name="BinPosRate" value="[0.1310592459605027, 0.3552414172939233, 0.37961145996860285, 0.4489961703609145, 0.4230222124958967, 0.46797433103281266, 0.5117078978700886, 0.6472556894243642, 0.6876444444444444, 0.5841631104788999]"/>
+                    <Extension name="BinWeightedCountNeg" value="[25652.0, 7024.0, 6323.0, 4748.0, 5273.0, 4394.0, 3691.0, 2108.0, 1757.0, 1754.0]"/>
+                    <Extension name="KS" value="31.333544123306854"/>
+                    <Extension name="BinWOE" value="[-1.3712310032539305, -0.07568388762554039, 0.029196758208731473, 0.31566706020872204, 0.21001538160785171, 0.39211616920930115, 0.5672346144028877, 1.1273924064954883, 1.3095242273752172, 0.8602816112534281]"/>
+                    <Extension name="IV" value="0.6819405093132906"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.08785"/>
+                    <Interval closure="openClosed" leftMargin="0.08785" rightMargin="0.09215"/>
+                    <Interval closure="openClosed" leftMargin="0.09215" rightMargin="0.0961"/>
+                    <Interval closure="openClosed" leftMargin="0.0961" rightMargin="0.09906"/>
+                    <Interval closure="openClosed" leftMargin="0.09906" rightMargin="0.1027"/>
+                    <Interval closure="openClosed" leftMargin="0.1027" rightMargin="0.1063"/>
+                    <Interval closure="openClosed" leftMargin="0.1063" rightMargin="0.1099"/>
+                    <Interval closure="openClosed" leftMargin="0.1099" rightMargin="0.115"/>
+                    <Interval closure="openClosed" leftMargin="0.115" rightMargin="0.1216"/>
+                    <Interval closure="openClosed" leftMargin="0.1216" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_compactness">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.01938" maximum="0.3454" mean="0.10434098418277686" standardDeviation="0.05281277460048369" median="0.09263" interQuartileRange="0.06547999999999998">
+                    <Quantile quantileLimit="0.0" quantileValue="0.01938"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.04966"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.05956"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.07027"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.07952"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.09263"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.1088"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.1225"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.1428"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.1765"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.3454"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="59.37002000000003" totalSquaresSum="7.7789847611999985">
+                    <Extension name="BinCountPos" value="[3871, 3868, 3869, 3866, 3867, 3868, 3870, 3869, 3866, 2462]"/>
+                    <Extension name="BinWeightedCountPos" value="[3871.0, 3868.0, 3869.0, 3866.0, 3867.0, 3868.0, 3870.0, 3869.0, 3866.0, 2462.0]"/>
+                    <Extension name="BinCountNeg" value="[40066, 9487, 4212, 3162, 2460, 1580, 703, 352, 702, 0]"/>
+                    <Extension name="BinPosRate" value="[0.08810342080706467, 0.2896293523025084, 0.4787773790372479, 0.5500853727945362, 0.611190137505927, 0.7099853157121879, 0.8462715941395146, 0.9166074389954987, 0.8463222416812609, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[40066.0, 9487.0, 4212.0, 3162.0, 2460.0, 1580.0, 703.0, 352.0, 702.0, 0.0]"/>
+                    <Extension name="KS" value="58.24031027342483"/>
+                    <Extension name="BinWOE" value="[-1.81662076036217, -0.3767904009217711, 0.43545294251630234, 0.7214101025747545, 0.9727121226904599, 1.4157071891413773, 2.22604734784941, 2.917514623841927, 2.226436709366999, 20.308475271293364]"/>
+                    <Extension name="IV" value="3.2579755023502326"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.08468"/>
+                    <Interval closure="openClosed" leftMargin="0.08468" rightMargin="0.1047"/>
+                    <Interval closure="openClosed" leftMargin="0.1047" rightMargin="0.1147"/>
+                    <Interval closure="openClosed" leftMargin="0.1147" rightMargin="0.128"/>
+                    <Interval closure="openClosed" leftMargin="0.128" rightMargin="0.1353"/>
+                    <Interval closure="openClosed" leftMargin="0.1353" rightMargin="0.1555"/>
+                    <Interval closure="openClosed" leftMargin="0.1555" rightMargin="0.1686"/>
+                    <Interval closure="openClosed" leftMargin="0.1686" rightMargin="0.1954"/>
+                    <Interval closure="openClosed" leftMargin="0.1954" rightMargin="0.2364"/>
+                    <Interval closure="openClosed" leftMargin="0.2364" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_concavity">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.0" maximum="0.4268" mean="0.08879931581722322" standardDeviation="0.07971981975008785" median="0.06154" interQuartileRange="0.10114000000000001">
+                    <Quantile quantileLimit="0.0" quantileValue="0.0"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.01367"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.0249"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.03416"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.04505"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.06154"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.08625"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.1122"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.1508"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.2032"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.4268"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="50.52681070000001" totalSquaresSum="8.096527028026685">
+                    <Extension name="BinCountPos" value="[3870, 3871, 3869, 3869, 3866, 3867, 3871, 3867, 3866, 2460]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3871.0, 3869.0, 3869.0, 3866.0, 3867.0, 3871.0, 3867.0, 3866.0, 2460.0]"/>
+                    <Extension name="BinCountNeg" value="[53941, 3689, 2457, 878, 528, 351, 0, 176, 176, 528]"/>
+                    <Extension name="BinPosRate" value="[0.06694227742125201, 0.5120370370370371, 0.6116029086310465, 0.8150410785759427, 0.8798361401911697, 0.9167852062588905, 1.0, 0.9564679693297057, 0.9564571994062345, 0.8232931726907631]"/>
+                    <Extension name="BinWeightedCountNeg" value="[53941.0, 3689.0, 2457.0, 878.0, 528.0, 351.0, 0.0, 176.0, 176.0, 528.0]"/>
+                    <Extension name="KS" value="75.6153701331445"/>
+                    <Extension name="BinWOE" value="[-2.1142418871732866, 0.5685519138390056, 0.9744494421852934, 2.003499216480262, 2.511273826742046, 2.919842512830673, 20.761014114575513, 3.610144723489837, 3.6098860916510653, 2.059214796451262]"/>
+                    <Extension name="IV" value="5.3962262733541815"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.08092"/>
+                    <Interval closure="openClosed" leftMargin="0.08092" rightMargin="0.09966"/>
+                    <Interval closure="openClosed" leftMargin="0.09966" rightMargin="0.1168"/>
+                    <Interval closure="openClosed" leftMargin="0.1168" rightMargin="0.1362"/>
+                    <Interval closure="openClosed" leftMargin="0.1362" rightMargin="0.1527"/>
+                    <Interval closure="openClosed" leftMargin="0.1527" rightMargin="0.1695"/>
+                    <Interval closure="openClosed" leftMargin="0.1695" rightMargin="0.1974"/>
+                    <Interval closure="openClosed" leftMargin="0.1974" rightMargin="0.2236"/>
+                    <Interval closure="openClosed" leftMargin="0.2236" rightMargin="0.2914"/>
+                    <Interval closure="openClosed" leftMargin="0.2914" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_concave_points">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.0" maximum="0.2012" mean="0.048919145869947236" standardDeviation="0.038802867545156106" median="0.0335" interQuartileRange="0.053689999999999995">
+                    <Quantile quantileLimit="0.0" quantileValue="0.0"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.01115"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.01786"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.02278"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.02798"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.0335"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.04835"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.06462"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.08465"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.1009"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.2012"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="27.834993999999977" totalSquaresSum="2.2168794486600008">
+                    <Extension name="BinCountPos" value="[3870, 3870, 3867, 3871, 3869, 3870, 3864, 3867, 3866, 2462]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3870.0, 3867.0, 3871.0, 3869.0, 3870.0, 3864.0, 3867.0, 3866.0, 2462.0]"/>
+                    <Extension name="BinCountNeg" value="[57805, 2284, 1404, 1055, 176, 0, 0, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.06274827725982975, 0.628859278518037, 0.7336368810472396, 0.7858302882663418, 0.9564894932014834, 1.0, 1.0, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[57805.0, 2284.0, 1404.0, 1055.0, 176.0, 0.0, 0.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="81.77569154121795"/>
+                    <Extension name="BinWOE" value="[-2.183426307635524, 1.047720675060272, 1.5335481651133465, 1.8203665612804096, 3.6106617865825545, 20.760755750021943, 20.75920415933202, 20.75998025560616, 20.759721623767387, 20.308475271293364]"/>
+                    <Extension name="IV" value="12.459233060817956"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.05246"/>
+                    <Interval closure="openClosed" leftMargin="0.05246" rightMargin="0.06018"/>
+                    <Interval closure="openClosed" leftMargin="0.06018" rightMargin="0.06847"/>
+                    <Interval closure="openClosed" leftMargin="0.06847" rightMargin="0.07981"/>
+                    <Interval closure="openClosed" leftMargin="0.07981" rightMargin="0.08683"/>
+                    <Interval closure="openClosed" leftMargin="0.08683" rightMargin="0.09183"/>
+                    <Interval closure="openClosed" leftMargin="0.09183" rightMargin="0.1003"/>
+                    <Interval closure="openClosed" leftMargin="0.1003" rightMargin="0.1198"/>
+                    <Interval closure="openClosed" leftMargin="0.1198" rightMargin="0.1496"/>
+                    <Interval closure="openClosed" leftMargin="0.1496" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_symmetry">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.106" maximum="0.304" mean="0.181161862917399" standardDeviation="0.027414313446348548" median="0.1792" interQuartileRange="0.033800000000000024">
+                    <Quantile quantileLimit="0.0" quantileValue="0.106"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.1495"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.1587"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.165"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.172"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.1792"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.1855"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.1928"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.2009"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.2151"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.304"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="103.08110000000003" totalSquaresSum="19.101240429999987">
+                    <Extension name="BinCountPos" value="[3867, 4043, 3868, 3867, 3870, 3870, 3869, 3866, 3870, 2286]"/>
+                    <Extension name="BinWeightedCountPos" value="[3867.0, 4043.0, 3868.0, 3867.0, 3870.0, 3870.0, 3869.0, 3866.0, 3870.0, 2286.0]"/>
+                    <Extension name="BinCountNeg" value="[17041, 15278, 6152, 4569, 4919, 4923, 5625, 1229, 1756, 1232]"/>
+                    <Extension name="BinPosRate" value="[0.1849531279892864, 0.20925417939030072, 0.38602794411177643, 0.45839260312944524, 0.4403231311867107, 0.44012282497441146, 0.40752053928797133, 0.758783120706575, 0.6878777106292214, 0.6498010233086982]"/>
+                    <Extension name="BinWeightedCountNeg" value="[17041.0, 15278.0, 6152.0, 4569.0, 4919.0, 4923.0, 5625.0, 1229.0, 1756.0, 1232.0]"/>
+                    <Extension name="KS" value="30.305643785036274"/>
+                    <Extension name="BinWOE" value="[-0.9627487303088452, -0.8090324323537206, 0.056354806927212446, 0.3535791112305362, 0.28054371051193067, 0.279730867550106, 0.1461695890716279, 1.6664140076581564, 1.3106104708153639, 1.1385591583960544]"/>
+                    <Extension name="IV" value="0.5855316852474108"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.1592"/>
+                    <Interval closure="openClosed" leftMargin="0.1592" rightMargin="0.1721"/>
+                    <Interval closure="openClosed" leftMargin="0.1721" rightMargin="0.1794"/>
+                    <Interval closure="openClosed" leftMargin="0.1794" rightMargin="0.1848"/>
+                    <Interval closure="openClosed" leftMargin="0.1848" rightMargin="0.191"/>
+                    <Interval closure="openClosed" leftMargin="0.191" rightMargin="0.1967"/>
+                    <Interval closure="openClosed" leftMargin="0.1967" rightMargin="0.2092"/>
+                    <Interval closure="openClosed" leftMargin="0.2092" rightMargin="0.2163"/>
+                    <Interval closure="openClosed" leftMargin="0.2163" rightMargin="0.2397"/>
+                    <Interval closure="openClosed" leftMargin="0.2397" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="mean_fractal_dimension">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.04996" maximum="0.09744" mean="0.06279760984182778" standardDeviation="0.007060487473368245" median="0.06154" interQuartileRange="0.008419999999999997">
+                    <Quantile quantileLimit="0.0" quantileValue="0.04996"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.05533"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.05684"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.05884"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.0602"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.06154"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.06315"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.06506"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.06766"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.07237"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.09744"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="35.731840000000005" totalSquaresSum="2.2721882217999987">
+                    <Extension name="BinCountPos" value="[3868, 3870, 3867, 3868, 3867, 3869, 3870, 3867, 3867, 2463]"/>
+                    <Extension name="BinWeightedCountPos" value="[3868.0, 3870.0, 3867.0, 3868.0, 3867.0, 3869.0, 3870.0, 3867.0, 3867.0, 2463.0]"/>
+                    <Extension name="BinCountNeg" value="[1933, 3864, 8083, 12123, 6854, 5098, 12122, 5795, 3689, 3163]"/>
+                    <Extension name="BinPosRate" value="[0.6667815893811412, 0.5003878975950349, 0.32359832635983266, 0.24188606090926146, 0.36069396511519447, 0.4314709490353518, 0.2419959979989995, 0.4002276961291658, 0.5117787188988883, 0.43778883753999287]"/>
+                    <Extension name="BinWeightedCountNeg" value="[1933.0, 3864.0, 8083.0, 12123.0, 6854.0, 5098.0, 12122.0, 5795.0, 3689.0, 3163.0]"/>
+                    <Extension name="KS" value="11.516588694632228"/>
+                    <Extension name="BinWOE" value="[1.2140588366790281, 0.5219460516267072, -0.21688961634321902, -0.6219724351317168, -0.051958949183074074, 0.24454223109291645, -0.621373014446262, 0.11587799731039106, 0.5675180548696506, 0.27025363594064983]"/>
+                    <Extension name="IV" value="0.264130460692912"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.05425"/>
+                    <Interval closure="openClosed" leftMargin="0.05425" rightMargin="0.05593"/>
+                    <Interval closure="openClosed" leftMargin="0.05593" rightMargin="0.05781"/>
+                    <Interval closure="openClosed" leftMargin="0.05781" rightMargin="0.06053"/>
+                    <Interval closure="openClosed" leftMargin="0.06053" rightMargin="0.06194"/>
+                    <Interval closure="openClosed" leftMargin="0.06194" rightMargin="0.06328"/>
+                    <Interval closure="openClosed" leftMargin="0.06328" rightMargin="0.06672"/>
+                    <Interval closure="openClosed" leftMargin="0.06672" rightMargin="0.07029"/>
+                    <Interval closure="openClosed" leftMargin="0.07029" rightMargin="0.07542"/>
+                    <Interval closure="openClosed" leftMargin="0.07542" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_radius">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.1115" maximum="2.873" mean="0.4051720562390161" standardDeviation="0.2773127361604316" median="0.3242" interQuartileRange="0.2465">
+                    <Quantile quantileLimit="0.0" quantileValue="0.1115"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.1822"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.2191"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.2456"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.28"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.3242"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.3699"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.4311"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.5462"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.7548"/>
+                    <Quantile quantileLimit="100.0" quantileValue="2.873"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="230.54290000000015" totalSquaresSum="137.0900767099999">
+                    <Extension name="BinCountPos" value="[3867, 3869, 3869, 3869, 3868, 3870, 3869, 3867, 3867, 2461]"/>
+                    <Extension name="BinWeightedCountPos" value="[3867.0, 3869.0, 3869.0, 3869.0, 3868.0, 3870.0, 3869.0, 3867.0, 3867.0, 2461.0]"/>
+                    <Extension name="BinCountNeg" value="[35843, 10189, 10364, 2285, 2812, 351, 528, 176, 176, 0]"/>
+                    <Extension name="BinPosRate" value="[0.09738101233946109, 0.2752169583155499, 0.2718330640061828, 0.6286967825804355, 0.5790419161676646, 0.9168443496801706, 0.8799181259949966, 0.9564679693297057, 0.9564679693297057, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[35843.0, 10189.0, 10364.0, 2285.0, 2812.0, 351.0, 528.0, 176.0, 176.0, 0.0]"/>
+                    <Extension name="KS" value="58.778725437344725"/>
+                    <Extension name="BinWOE" value="[-1.7062748149512839, -0.44791816933054845, -0.4649477250278689, 1.0470245111860041, 0.8392360639711243, 2.9206180072464565, 2.5120495216735352, 3.610144723489837, 3.610144723489837, 20.308069014940635]"/>
+                    <Extension name="IV" value="3.568846562342442"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.2796"/>
+                    <Interval closure="openClosed" leftMargin="0.2796" rightMargin="0.338"/>
+                    <Interval closure="openClosed" leftMargin="0.338" rightMargin="0.4209"/>
+                    <Interval closure="openClosed" leftMargin="0.4209" rightMargin="0.4727"/>
+                    <Interval closure="openClosed" leftMargin="0.4727" rightMargin="0.5558"/>
+                    <Interval closure="openClosed" leftMargin="0.5558" rightMargin="0.6289"/>
+                    <Interval closure="openClosed" leftMargin="0.6289" rightMargin="0.7392"/>
+                    <Interval closure="openClosed" leftMargin="0.7392" rightMargin="0.8601"/>
+                    <Interval closure="openClosed" leftMargin="0.8601" rightMargin="1.111"/>
+                    <Interval closure="openClosed" leftMargin="1.111" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_texture">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.3602" maximum="4.885" mean="1.2168534270650269" standardDeviation="0.55164839421293" median="1.108" interQuartileRange="0.6401">
+                    <Quantile quantileLimit="0.0" quantileValue="0.3602"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.6372"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.78"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.9017"/>
+                    <Quantile quantileLimit="40.0" quantileValue="1.005"/>
+                    <Quantile quantileLimit="50.0" quantileValue="1.108"/>
+                    <Quantile quantileLimit="60.0" quantileValue="1.239"/>
+                    <Quantile quantileLimit="70.0" quantileValue="1.389"/>
+                    <Quantile quantileLimit="80.0" quantileValue="1.563"/>
+                    <Quantile quantileLimit="90.0" quantileValue="1.911"/>
+                    <Quantile quantileLimit="100.0" quantileValue="4.885"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="692.3896000000003" totalSquaresSum="1015.3881166999996">
+                    <Extension name="BinCountPos" value="[3870, 3871, 3866, 3868, 3868, 3867, 3868, 3869, 3867, 2462]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3871.0, 3866.0, 3868.0, 3868.0, 3867.0, 3868.0, 3869.0, 3867.0, 2462.0]"/>
+                    <Extension name="BinCountNeg" value="[11066, 6681, 4571, 4392, 6324, 5095, 5620, 5975, 7027, 5973]"/>
+                    <Extension name="BinPosRate" value="[0.25910551687198713, 0.36684988627748294, 0.4582197463553396, 0.4682808716707022, 0.3795133437990581, 0.4314885070296809, 0.407672849915683, 0.3930312880942706, 0.35496603635028456, 0.2918790752815649]"/>
+                    <Extension name="BinWeightedCountNeg" value="[11066.0, 6681.0, 4571.0, 4392.0, 6324.0, 5095.0, 5620.0, 5975.0, 7027.0, 5973.0]"/>
+                    <Extension name="KS" value="7.527081871932944"/>
+                    <Extension name="BinWOE" value="[-0.5302283754424648, -0.0253603437283393, 0.35288284262389247, 0.3933473345147546, 0.02878011981105988, 0.24461380727871002, 0.14680037512844107, 0.08580643940985662, -0.07688639791818754, -0.3658808239286032]"/>
+                    <Extension name="IV" value="0.08243675258620167"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.7096"/>
+                    <Interval closure="openClosed" leftMargin="0.7096" rightMargin="0.8423"/>
+                    <Interval closure="openClosed" leftMargin="0.8423" rightMargin="0.9429"/>
+                    <Interval closure="openClosed" leftMargin="0.9429" rightMargin="1.025"/>
+                    <Interval closure="openClosed" leftMargin="1.025" rightMargin="1.152"/>
+                    <Interval closure="openClosed" leftMargin="1.152" rightMargin="1.268"/>
+                    <Interval closure="openClosed" leftMargin="1.268" rightMargin="1.4"/>
+                    <Interval closure="openClosed" leftMargin="1.4" rightMargin="1.583"/>
+                    <Interval closure="openClosed" leftMargin="1.583" rightMargin="1.961"/>
+                    <Interval closure="openClosed" leftMargin="1.961" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_perimeter">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.757" maximum="21.98" mean="2.8660592267135288" standardDeviation="2.0218545544774957" median="2.287" interQuartileRange="1.7510000000000001">
+                    <Quantile quantileLimit="0.0" quantileValue="0.757"/>
+                    <Quantile quantileLimit="10.0" quantileValue="1.277"/>
+                    <Quantile quantileLimit="20.0" quantileValue="1.516"/>
+                    <Quantile quantileLimit="30.0" quantileValue="1.74"/>
+                    <Quantile quantileLimit="40.0" quantileValue="2.039"/>
+                    <Quantile quantileLimit="50.0" quantileValue="2.287"/>
+                    <Quantile quantileLimit="60.0" quantileValue="2.591"/>
+                    <Quantile quantileLimit="70.0" quantileValue="3.055"/>
+                    <Quantile quantileLimit="80.0" quantileValue="3.769"/>
+                    <Quantile quantileLimit="90.0" quantileValue="5.144"/>
+                    <Quantile quantileLimit="100.0" quantileValue="21.98"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="1630.7876999999978" totalSquaresSum="6995.858970209999">
+                    <Extension name="BinCountPos" value="[3868, 3871, 3869, 3866, 4043, 3871, 3868, 3866, 3870, 2284]"/>
+                    <Extension name="BinWeightedCountPos" value="[3868.0, 3871.0, 3869.0, 3866.0, 4043.0, 3871.0, 3868.0, 3866.0, 3870.0, 2284.0]"/>
+                    <Extension name="BinCountNeg" value="[37427, 10714, 7730, 2459, 2109, 1406, 703, 176, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.09366751422690399, 0.26540966746657524, 0.3335632382101905, 0.6112252964426877, 0.657184655396619, 0.7335607352662498, 0.8462043316560928, 0.9564571994062345, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[37427.0, 10714.0, 7730.0, 2459.0, 2109.0, 1406.0, 703.0, 176.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="57.933677172202714"/>
+                    <Extension name="BinWOE" value="[-1.7492603291090396, -0.4976439638903659, -0.17171832513356144, 0.9728600775608673, 1.17116754870525, 1.5331585363042026, 2.2255304183992655, 3.6098860916510653, 20.760755750021943, 20.23342953544286]"/>
+                    <Extension name="IV" value="5.1395700605401045"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="2.066"/>
+                    <Interval closure="openClosed" leftMargin="2.066" rightMargin="2.475"/>
+                    <Interval closure="openClosed" leftMargin="2.475" rightMargin="2.927"/>
+                    <Interval closure="openClosed" leftMargin="2.927" rightMargin="3.271"/>
+                    <Interval closure="openClosed" leftMargin="3.271" rightMargin="3.769"/>
+                    <Interval closure="openClosed" leftMargin="3.769" rightMargin="4.321"/>
+                    <Interval closure="openClosed" leftMargin="4.321" rightMargin="5.118"/>
+                    <Interval closure="openClosed" leftMargin="5.118" rightMargin="6.311"/>
+                    <Interval closure="openClosed" leftMargin="6.311" rightMargin="8.589"/>
+                    <Interval closure="openClosed" leftMargin="8.589" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_area">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="6.802" maximum="542.2" mean="40.33707908611603" standardDeviation="45.49100551615113" median="24.53" interQuartileRange="27.339999999999996">
+                    <Quantile quantileLimit="0.0" quantileValue="6.802"/>
+                    <Quantile quantileLimit="10.0" quantileValue="13.12"/>
+                    <Quantile quantileLimit="20.0" quantileValue="16.64"/>
+                    <Quantile quantileLimit="30.0" quantileValue="19.01"/>
+                    <Quantile quantileLimit="40.0" quantileValue="21.05"/>
+                    <Quantile quantileLimit="50.0" quantileValue="24.53"/>
+                    <Quantile quantileLimit="60.0" quantileValue="29.34"/>
+                    <Quantile quantileLimit="70.0" quantileValue="38.49"/>
+                    <Quantile quantileLimit="80.0" quantileValue="54.16"/>
+                    <Quantile quantileLimit="90.0" quantileValue="92.81"/>
+                    <Quantile quantileLimit="100.0" quantileValue="542.2"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="22951.79800000002" totalSquaresSum="2101245.630164">
+                    <Extension name="BinCountPos" value="[3867, 3871, 3867, 3870, 3868, 3870, 3867, 3867, 3869, 2460]"/>
+                    <Extension name="BinWeightedCountPos" value="[3867.0, 3871.0, 3867.0, 3870.0, 3868.0, 3870.0, 3867.0, 3867.0, 3869.0, 2460.0]"/>
+                    <Extension name="BinCountNeg" value="[45505, 12122, 2812, 1406, 703, 0, 176, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.0783237462529369, 0.24204339398486838, 0.5789788890552477, 0.7335102350265352, 0.8462043316560928, 1.0, 0.9564679693297057, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[45505.0, 12122.0, 2812.0, 1406.0, 703.0, 0.0, 176.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="71.11525876407576"/>
+                    <Extension name="BinWOE" value="[-1.9449487349826715, -0.6211146498926904, 0.8389774990054856, 1.532900171750631, 2.2255304183992655, 20.760755750021943, 3.610144723489837, 20.75998025560616, 20.760497318698878, 20.307662593476604]"/>
+                    <Extension name="IV" value="9.813380872510566"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="24.28"/>
+                    <Interval closure="openClosed" leftMargin="24.28" rightMargin="33.12"/>
+                    <Interval closure="openClosed" leftMargin="33.12" rightMargin="41.18"/>
+                    <Interval closure="openClosed" leftMargin="41.18" rightMargin="49.11"/>
+                    <Interval closure="openClosed" leftMargin="49.11" rightMargin="60.41"/>
+                    <Interval closure="openClosed" leftMargin="60.41" rightMargin="72.44"/>
+                    <Interval closure="openClosed" leftMargin="72.44" rightMargin="90.94"/>
+                    <Interval closure="openClosed" leftMargin="90.94" rightMargin="106.0"/>
+                    <Interval closure="openClosed" leftMargin="106.0" rightMargin="153.1"/>
+                    <Interval closure="openClosed" leftMargin="153.1" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_smoothness">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.001713" maximum="0.03113" mean="0.007040978910369071" standardDeviation="0.003002811110685435" median="0.00638" interQuartileRange="0.0029770000000000005">
+                    <Quantile quantileLimit="0.0" quantileValue="0.001713"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.0042"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.004868"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.005415"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.005841"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.00638"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.006953"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.007781"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.008835"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.01049"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.03113"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="4.006317000000001" totalSquaresSum="0.03332897825900004">
+                    <Extension name="BinCountPos" value="[3870, 3869, 3865, 3869, 3869, 3867, 3870, 3868, 3866, 2463]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3869.0, 3865.0, 3869.0, 3869.0, 3867.0, 3870.0, 3868.0, 3866.0, 2463.0]"/>
+                    <Extension name="BinCountNeg" value="[9311, 3689, 6503, 3693, 6326, 5096, 7901, 5271, 7205, 7729]"/>
+                    <Extension name="BinPosRate" value="[0.2936044306198316, 0.5119079121460703, 0.37278163580246915, 0.511637133033589, 0.37949975478175574, 0.43144036594890106, 0.32877410585336847, 0.4232410548200022, 0.34920061421732457, 0.241660125588697]"/>
+                    <Extension name="BinWeightedCountNeg" value="[9311.0, 3689.0, 6503.0, 3693.0, 6326.0, 5096.0, 7901.0, 5271.0, 7205.0, 7729.0]"/>
+                    <Extension name="KS" value="7.071586349856373"/>
+                    <Extension name="BinWOE" value="[-0.3575475279797772, 0.5680351179623683, 9.253474765749003E-5, 0.5669514007083223, 0.02872241240222098, 0.24441755568377746, -0.1933403649342, 0.21091194108707345, -0.10216038697633162, -0.623204906689059]"/>
+                    <Extension name="IV" value="0.11775076637978413"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.004444"/>
+                    <Interval closure="openClosed" leftMargin="0.004444" rightMargin="0.004928"/>
+                    <Interval closure="openClosed" leftMargin="0.004928" rightMargin="0.005463"/>
+                    <Interval closure="openClosed" leftMargin="0.005463" rightMargin="0.005783"/>
+                    <Interval closure="openClosed" leftMargin="0.005783" rightMargin="0.006294"/>
+                    <Interval closure="openClosed" leftMargin="0.006294" rightMargin="0.00677"/>
+                    <Interval closure="openClosed" leftMargin="0.00677" rightMargin="0.007702"/>
+                    <Interval closure="openClosed" leftMargin="0.007702" rightMargin="0.008713"/>
+                    <Interval closure="openClosed" leftMargin="0.008713" rightMargin="0.01039"/>
+                    <Interval closure="openClosed" leftMargin="0.01039" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_compactness">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.002252" maximum="0.1354" mean="0.025478138840070306" standardDeviation="0.017908228480896703" median="0.02045" interQuartileRange="0.01937">
+                    <Quantile quantileLimit="0.0" quantileValue="0.002252"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.009169"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.0118"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.01422"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.01701"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.02045"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.02449"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.03026"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.03633"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.04765"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.1354"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="14.497061000000004" totalSquaresSum="0.5515173726110004">
+                    <Extension name="BinCountPos" value="[3872, 3868, 3867, 3869, 3865, 3869, 3870, 3868, 3867, 2461]"/>
+                    <Extension name="BinWeightedCountPos" value="[3872.0, 3868.0, 3867.0, 3869.0, 3865.0, 3869.0, 3870.0, 3868.0, 3867.0, 2461.0]"/>
+                    <Extension name="BinCountNeg" value="[24422, 12827, 6323, 3338, 2109, 3161, 2988, 3337, 1583, 2636]"/>
+                    <Extension name="BinPosRate" value="[0.13684880186612003, 0.23168613357292603, 0.37948969578017666, 0.5368391841265436, 0.6469702042182792, 0.5503556187766714, 0.5643044619422573, 0.5368494101318528, 0.7095412844036697, 0.4828330390425741]"/>
+                    <Extension name="BinWeightedCountNeg" value="[24422.0, 12827.0, 6323.0, 3338.0, 2109.0, 3161.0, 2988.0, 3337.0, 1583.0, 2636.0]"/>
+                    <Extension name="KS" value="38.62153166989846"/>
+                    <Extension name="BinWOE" value="[-1.321318733695251, -0.6784202846565873, 0.02867969511601391, 0.6680187111584724, 1.126142240128463, 0.7225021030594156, 0.7790447002305029, 0.6680598385012367, 1.4135516903232623, 0.4516996154991883]"/>
+                    <Extension name="IV" value="0.7962582522486328"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.01386"/>
+                    <Interval closure="openClosed" leftMargin="0.01386" rightMargin="0.0187"/>
+                    <Interval closure="openClosed" leftMargin="0.0187" rightMargin="0.02251"/>
+                    <Interval closure="openClosed" leftMargin="0.02251" rightMargin="0.02569"/>
+                    <Interval closure="openClosed" leftMargin="0.02569" rightMargin="0.02899"/>
+                    <Interval closure="openClosed" leftMargin="0.02899" rightMargin="0.03255"/>
+                    <Interval closure="openClosed" leftMargin="0.03255" rightMargin="0.03799"/>
+                    <Interval closure="openClosed" leftMargin="0.03799" rightMargin="0.04732"/>
+                    <Interval closure="openClosed" leftMargin="0.04732" rightMargin="0.06063"/>
+                    <Interval closure="openClosed" leftMargin="0.06063" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_concavity">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.0" maximum="0.396" mean="0.031893716344463946" standardDeviation="0.03018608948483521" median="0.02589" interQuartileRange="0.026959999999999998">
+                    <Quantile quantileLimit="0.0" quantileValue="0.0"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.007665"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.01311"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.01698"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.02045"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.02589"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.03055"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.03737"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.04644"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.05904"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.396"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="18.147524599999986" totalSquaresSum="1.096352601030101">
+                    <Extension name="BinCountPos" value="[3871, 3871, 3871, 3867, 3867, 3866, 3868, 3867, 3867, 2461]"/>
+                    <Extension name="BinWeightedCountPos" value="[3871.0, 3871.0, 3871.0, 3867.0, 3867.0, 3866.0, 3868.0, 3867.0, 3867.0, 2461.0]"/>
+                    <Extension name="BinCountNeg" value="[36372, 6149, 2986, 4394, 1054, 2105, 2987, 1932, 2107, 2638]"/>
+                    <Extension name="BinPosRate" value="[0.09619064185075665, 0.38632734530938123, 0.5645325944290506, 0.46810313521365454, 0.7858158910790489, 0.6474627365600402, 0.5642596644784829, 0.6668391101914123, 0.6473049882825578, 0.4826436556187488]"/>
+                    <Extension name="BinWeightedCountNeg" value="[36372.0, 6149.0, 2986.0, 4394.0, 1054.0, 2105.0, 2987.0, 1932.0, 2107.0, 2638.0]"/>
+                    <Extension name="KS" value="47.60267532529441"/>
+                    <Extension name="BinWOE" value="[-1.7198919138822755, 0.057617866162441495, 0.7799726329362409, 0.39263349979457696, 1.820281019114273, 1.1282993732316087, 0.7788624988162538, 1.2143177361475772, 1.1276083373855013, 0.4509411778461303]"/>
+                    <Extension name="IV" value="1.335749654970227"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.02059"/>
+                    <Interval closure="openClosed" leftMargin="0.02059" rightMargin="0.02602"/>
+                    <Interval closure="openClosed" leftMargin="0.02602" rightMargin="0.02913"/>
+                    <Interval closure="openClosed" leftMargin="0.02913" rightMargin="0.03407"/>
+                    <Interval closure="openClosed" leftMargin="0.03407" rightMargin="0.03829"/>
+                    <Interval closure="openClosed" leftMargin="0.03829" rightMargin="0.04305"/>
+                    <Interval closure="openClosed" leftMargin="0.04305" rightMargin="0.04912"/>
+                    <Interval closure="openClosed" leftMargin="0.04912" rightMargin="0.05671"/>
+                    <Interval closure="openClosed" leftMargin="0.05671" rightMargin="0.07926"/>
+                    <Interval closure="openClosed" leftMargin="0.07926" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_concave_points">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.0" maximum="0.05279" mean="0.011796137082601056" standardDeviation="0.006170427837066313" median="0.01093" interQuartileRange="0.007072000000000001">
+                    <Quantile quantileLimit="0.0" quantileValue="0.0"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.005484"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.006888"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.008463"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.009615"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.01093"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.01241"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.0137"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.01583"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.01876"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.05279"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="6.712002000000001" totalSquaresSum="0.10080082975600001">
+                    <Extension name="BinCountPos" value="[3871, 3868, 3869, 3871, 3870, 3867, 3863, 3870, 3865, 2462]"/>
+                    <Extension name="BinWeightedCountPos" value="[3871.0, 3868.0, 3869.0, 3871.0, 3870.0, 3867.0, 3863.0, 3870.0, 3865.0, 2462.0]"/>
+                    <Extension name="BinCountNeg" value="[33383, 8612, 5622, 3512, 2634, 2108, 1756, 1932, 1583, 1582]"/>
+                    <Extension name="BinPosRate" value="[0.10390830514844043, 0.30993589743589745, 0.40764935201770097, 0.5243126100501151, 0.5950184501845018, 0.6471966527196653, 0.6874888770243816, 0.6670113753877973, 0.7094346549192364, 0.6088031651829872]"/>
+                    <Extension name="BinWeightedCountNeg" value="[33383.0, 8612.0, 5622.0, 3512.0, 2634.0, 2108.0, 1756.0, 1932.0, 1583.0, 1582.0]"/>
+                    <Extension name="KS" value="46.190696090655884"/>
+                    <Extension name="BinWOE" value="[-1.6341394544054502, -0.2800245400803232, 0.1467030646771765, 0.6177216565949812, 0.90514536389786, 1.1271338415298495, 1.3088000474595631, 1.2150932305633604, 1.4130343597379864, 0.9626786175613745]"/>
+                    <Extension name="IV" value="1.2139324509386171"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.009233"/>
+                    <Interval closure="openClosed" leftMargin="0.009233" rightMargin="0.01091"/>
+                    <Interval closure="openClosed" leftMargin="0.01091" rightMargin="0.01221"/>
+                    <Interval closure="openClosed" leftMargin="0.01221" rightMargin="0.01334"/>
+                    <Interval closure="openClosed" leftMargin="0.01334" rightMargin="0.01435"/>
+                    <Interval closure="openClosed" leftMargin="0.01435" rightMargin="0.01569"/>
+                    <Interval closure="openClosed" leftMargin="0.01569" rightMargin="0.01716"/>
+                    <Interval closure="openClosed" leftMargin="0.01716" rightMargin="0.0191"/>
+                    <Interval closure="openClosed" leftMargin="0.0191" rightMargin="0.0246"/>
+                    <Interval closure="openClosed" leftMargin="0.0246" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_symmetry">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.007882" maximum="0.07895" mean="0.020542298769771532" standardDeviation="0.008266478017602722" median="0.01873" interQuartileRange="0.008320000000000001">
+                    <Quantile quantileLimit="0.0" quantileValue="0.007882"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.01298"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.01454"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.01568"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.01717"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.01873"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.02007"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.02201"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.02571"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.03044"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.07895"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="11.688568000000002" totalSquaresSum="0.27892314225400006">
+                    <Extension name="BinCountPos" value="[3865, 3870, 3870, 3868, 3868, 4044, 4044, 3867, 3868, 2112]"/>
+                    <Extension name="BinWeightedCountPos" value="[3865.0, 3870.0, 3870.0, 3868.0, 3868.0, 4044.0, 4044.0, 3867.0, 3868.0, 2112.0]"/>
+                    <Extension name="BinCountNeg" value="[4564, 4919, 4569, 5792, 5097, 9489, 7201, 9665, 10372, 1056]"/>
+                    <Extension name="BinPosRate" value="[0.45853600664372995, 0.4403231311867107, 0.458585140419481, 0.4004140786749482, 0.43145566090351367, 0.2988250942141432, 0.3596265006669631, 0.2857670706473544, 0.27162921348314606, 0.6666666666666666]"/>
+                    <Extension name="BinWeightedCountNeg" value="[4564.0, 4919.0, 4569.0, 5792.0, 5097.0, 9489.0, 7201.0, 9665.0, 10372.0, 1056.0]"/>
+                    <Extension name="KS" value="12.122842878243173"/>
+                    <Extension name="BinWOE" value="[0.3541567112250617, 0.28054371051193067, 0.3543546056463194, 0.11665438398376884, 0.24447990756161528, -0.332504469977278, -0.056591142462413764, -0.3956376381247877, -0.46597782813103533, 1.2135416379805106]"/>
+                    <Extension name="IV" value="0.14742217549200237"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.01266"/>
+                    <Interval closure="openClosed" leftMargin="0.01266" rightMargin="0.01411"/>
+                    <Interval closure="openClosed" leftMargin="0.01411" rightMargin="0.01522"/>
+                    <Interval closure="openClosed" leftMargin="0.01522" rightMargin="0.01647"/>
+                    <Interval closure="openClosed" leftMargin="0.01647" rightMargin="0.01798"/>
+                    <Interval closure="openClosed" leftMargin="0.01798" rightMargin="0.01962"/>
+                    <Interval closure="openClosed" leftMargin="0.01962" rightMargin="0.02183"/>
+                    <Interval closure="openClosed" leftMargin="0.02183" rightMargin="0.02659"/>
+                    <Interval closure="openClosed" leftMargin="0.02659" rightMargin="0.04077"/>
+                    <Interval closure="openClosed" leftMargin="0.04077" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="std_fractal_dimension">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="8.948E-4" maximum="0.02984" mean="0.0037949038664323383" standardDeviation="0.002646403621190959" median="0.003187" interQuartileRange="0.0023100000000000004">
+                    <Quantile quantileLimit="0.0" quantileValue="8.948E-4"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.001708"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.002052"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.002379"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.002751"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.003187"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.003614"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.004174"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.004831"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.006187"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.02984"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="2.1593003000000004" totalSquaresSum="0.012171297864969998">
+                    <Extension name="BinCountPos" value="[3869, 3869, 3867, 3870, 4044, 3868, 3868, 3870, 3864, 2287]"/>
+                    <Extension name="BinWeightedCountPos" value="[3869.0, 3869.0, 3867.0, 3870.0, 4044.0, 3868.0, 3868.0, 3870.0, 3864.0, 2287.0]"/>
+                    <Extension name="BinCountNeg" value="[11948, 13354, 7026, 5623, 5799, 3866, 2636, 4565, 3338, 4569]"/>
+                    <Extension name="BinPosRate" value="[0.24461022949990516, 0.22464146780467978, 0.3549986229688791, 0.40766880859580745, 0.4108503505028955, 0.5001292991983449, 0.5947109471094711, 0.4588026081802015, 0.5365176339905582, 0.33357642940490084]"/>
+                    <Extension name="BinWeightedCountNeg" value="[11948.0, 13354.0, 7026.0, 5623.0, 5799.0, 3866.0, 2636.0, 4565.0, 3338.0, 4569.0]"/>
+                    <Extension name="KS" value="20.407448095338466"/>
+                    <Extension name="BinWOE" value="[-0.6071733626016332, -0.7184254276281741, -0.07674407955188914, 0.14678363917471604, 0.15994327369942338, 0.5209116577415348, 0.9038694211303507, 0.3552304541793191, 0.6667255517916149, -0.17165898568802293]"/>
+                    <Extension name="IV" value="0.2606855815824248"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.001941"/>
+                    <Interval closure="openClosed" leftMargin="0.001941" rightMargin="0.002528"/>
+                    <Interval closure="openClosed" leftMargin="0.002528" rightMargin="0.002887"/>
+                    <Interval closure="openClosed" leftMargin="0.002887" rightMargin="0.003339"/>
+                    <Interval closure="openClosed" leftMargin="0.003339" rightMargin="0.003761"/>
+                    <Interval closure="openClosed" leftMargin="0.003761" rightMargin="0.004237"/>
+                    <Interval closure="openClosed" leftMargin="0.004237" rightMargin="0.004638"/>
+                    <Interval closure="openClosed" leftMargin="0.004638" rightMargin="0.005701"/>
+                    <Interval closure="openClosed" leftMargin="0.005701" rightMargin="0.00733"/>
+                    <Interval closure="openClosed" leftMargin="0.00733" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_radius">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="7.93" maximum="36.04" mean="16.269189806678394" standardDeviation="4.83324158065145" median="14.97" interQuartileRange="5.779999999999999">
+                    <Quantile quantileLimit="0.0" quantileValue="7.93"/>
+                    <Quantile quantileLimit="10.0" quantileValue="11.21"/>
+                    <Quantile quantileLimit="20.0" quantileValue="12.48"/>
+                    <Quantile quantileLimit="30.0" quantileValue="13.31"/>
+                    <Quantile quantileLimit="40.0" quantileValue="14.0"/>
+                    <Quantile quantileLimit="50.0" quantileValue="14.97"/>
+                    <Quantile quantileLimit="60.0" quantileValue="16.01"/>
+                    <Quantile quantileLimit="70.0" quantileValue="17.39"/>
+                    <Quantile quantileLimit="80.0" quantileValue="20.33"/>
+                    <Quantile quantileLimit="90.0" quantileValue="23.69"/>
+                    <Quantile quantileLimit="100.0" quantileValue="36.04"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="9257.169000000005" totalSquaresSum="163875.24686500014">
+                    <Extension name="BinCountPos" value="[3870, 3868, 3869, 4046, 3870, 3866, 3868, 3866, 3868, 2285]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3868.0, 3869.0, 4046.0, 3870.0, 3866.0, 3868.0, 3866.0, 3868.0, 2285.0]"/>
+                    <Extension name="BinCountNeg" value="[56402, 5092, 1055, 175, 0, 0, 0, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.0642089195646403, 0.4316964285714286, 0.7857432981316004, 0.9585406301824212, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[56402.0, 5092.0, 1055.0, 175.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="79.53890817281032"/>
+                    <Extension name="BinWOE" value="[-2.158855649379133, 0.2454613582231515, 1.8198497654037724, 3.6610924704785726, 20.760755750021943, 20.759721623767387, 20.760238820571796, 20.759721623767387, 20.760238820571796, 20.23386726799455]"/>
+                    <Extension name="IV" value="14.278364514834823"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="16.08"/>
+                    <Interval closure="openClosed" leftMargin="16.08" rightMargin="17.32"/>
+                    <Interval closure="openClosed" leftMargin="17.32" rightMargin="18.51"/>
+                    <Interval closure="openClosed" leftMargin="18.51" rightMargin="19.92"/>
+                    <Interval closure="openClosed" leftMargin="19.92" rightMargin="20.96"/>
+                    <Interval closure="openClosed" leftMargin="20.96" rightMargin="22.52"/>
+                    <Interval closure="openClosed" leftMargin="22.52" rightMargin="23.69"/>
+                    <Interval closure="openClosed" leftMargin="23.69" rightMargin="25.28"/>
+                    <Interval closure="openClosed" leftMargin="25.28" rightMargin="28.19"/>
+                    <Interval closure="openClosed" leftMargin="28.19" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_texture">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="12.02" maximum="49.54" mean="25.677223198594014" standardDeviation="6.146257623181602" median="25.41" interQuartileRange="8.64">
+                    <Quantile quantileLimit="0.0" quantileValue="12.02"/>
+                    <Quantile quantileLimit="10.0" quantileValue="17.76"/>
+                    <Quantile quantileLimit="20.0" quantileValue="20.14"/>
+                    <Quantile quantileLimit="30.0" quantileValue="21.98"/>
+                    <Quantile quantileLimit="40.0" quantileValue="23.58"/>
+                    <Quantile quantileLimit="50.0" quantileValue="25.41"/>
+                    <Quantile quantileLimit="60.0" quantileValue="26.76"/>
+                    <Quantile quantileLimit="70.0" quantileValue="28.46"/>
+                    <Quantile quantileLimit="80.0" quantileValue="30.92"/>
+                    <Quantile quantileLimit="90.0" quantileValue="33.75"/>
+                    <Quantile quantileLimit="100.0" quantileValue="49.54"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="14610.339999999995" totalSquaresSum="396610.00340000016">
+                    <Extension name="BinCountPos" value="[3868, 3870, 3868, 3867, 4045, 3868, 3869, 3870, 3867, 2284]"/>
+                    <Extension name="BinWeightedCountPos" value="[3868.0, 3870.0, 3868.0, 3867.0, 4045.0, 3868.0, 3869.0, 3870.0, 3867.0, 2284.0]"/>
+                    <Extension name="BinCountNeg" value="[32867, 7556, 5800, 3690, 4742, 1230, 2456, 1228, 1928, 1227]"/>
+                    <Extension name="BinPosRate" value="[0.10529467809990473, 0.33870120777174867, 0.40008274720728176, 0.5117109964271537, 0.46033913736201204, 0.7587289132993331, 0.611699604743083, 0.7591212240094155, 0.6672993960310613, 0.6505269154087154]"/>
+                    <Extension name="BinWeightedCountNeg" value="[32867.0, 7556.0, 5800.0, 3690.0, 4742.0, 1230.0, 2456.0, 1228.0, 1928.0, 1227.0]"/>
+                    <Extension name="KS" value="43.68716106622487"/>
+                    <Extension name="BinWOE" value="[-1.619337074917596, -0.1486929808691142, 0.1152741215163042, 0.5672470154322141, 0.3614170240614172, 1.6661178656662878, 0.9748565254384001, 1.6682621347675022, 1.216390275742814, 1.141750584180434]"/>
+                    <Extension name="IV" value="1.201826027849576"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="23.07"/>
+                    <Interval closure="openClosed" leftMargin="23.07" rightMargin="25.16"/>
+                    <Interval closure="openClosed" leftMargin="25.16" rightMargin="26.39"/>
+                    <Interval closure="openClosed" leftMargin="26.39" rightMargin="27.82"/>
+                    <Interval closure="openClosed" leftMargin="27.82" rightMargin="29.43"/>
+                    <Interval closure="openClosed" leftMargin="29.43" rightMargin="30.86"/>
+                    <Interval closure="openClosed" leftMargin="30.86" rightMargin="32.07"/>
+                    <Interval closure="openClosed" leftMargin="32.07" rightMargin="34.01"/>
+                    <Interval closure="openClosed" leftMargin="34.01" rightMargin="37.38"/>
+                    <Interval closure="openClosed" leftMargin="37.38" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_perimeter">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="50.41" maximum="251.2" mean="107.2612126537786" standardDeviation="33.602542269062425" median="97.66" interQuartileRange="41.290000000000006">
+                    <Quantile quantileLimit="0.0" quantileValue="50.41"/>
+                    <Quantile quantileLimit="10.0" quantileValue="72.01"/>
+                    <Quantile quantileLimit="20.0" quantileValue="81.39"/>
+                    <Quantile quantileLimit="30.0" quantileValue="86.26"/>
+                    <Quantile quantileLimit="40.0" quantileValue="91.29"/>
+                    <Quantile quantileLimit="50.0" quantileValue="97.66"/>
+                    <Quantile quantileLimit="60.0" quantileValue="105.8"/>
+                    <Quantile quantileLimit="70.0" quantileValue="115.9"/>
+                    <Quantile quantileLimit="80.0" quantileValue="133.5"/>
+                    <Quantile quantileLimit="90.0" quantileValue="158.3"/>
+                    <Quantile quantileLimit="100.0" quantileValue="251.2"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="61031.63000000003" totalSquaresSum="7187672.965100002">
+                    <Extension name="BinCountPos" value="[3870, 3869, 3870, 3868, 3869, 3865, 3868, 3868, 3868, 2461]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3869.0, 3870.0, 3868.0, 3869.0, 3865.0, 3868.0, 3868.0, 3868.0, 2461.0]"/>
+                    <Extension name="BinCountNeg" value="[58159, 3862, 528, 175, 0, 0, 0, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.06239017233874478, 0.5004527228042944, 0.8799454297407913, 0.9567153104130596, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[58159.0, 3862.0, 528.0, 175.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="82.34006881307562"/>
+                    <Extension name="BinWOE" value="[-2.1895316696372946, 0.5222053526467497, 2.5123079529966006, 3.616101309366464, 20.760497318698878, 20.759462925020884, 20.760238820571796, 20.760238820571796, 20.760238820571796, 20.308069014940635]"/>
+                    <Extension name="IV" value="14.540410347177955"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="107.4"/>
+                    <Interval closure="openClosed" leftMargin="107.4" rightMargin="115.9"/>
+                    <Interval closure="openClosed" leftMargin="115.9" rightMargin="124.3"/>
+                    <Interval closure="openClosed" leftMargin="124.3" rightMargin="129.8"/>
+                    <Interval closure="openClosed" leftMargin="129.8" rightMargin="139.9"/>
+                    <Interval closure="openClosed" leftMargin="139.9" rightMargin="149.3"/>
+                    <Interval closure="openClosed" leftMargin="149.3" rightMargin="157.6"/>
+                    <Interval closure="openClosed" leftMargin="157.6" rightMargin="166.8"/>
+                    <Interval closure="openClosed" leftMargin="166.8" rightMargin="188.5"/>
+                    <Interval closure="openClosed" leftMargin="188.5" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_area">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="185.2" maximum="4254.0" mean="880.5831282952545" standardDeviation="569.356992669951" median="686.5" interQuartileRange="568.7">
+                    <Quantile quantileLimit="0.0" quantileValue="185.2"/>
+                    <Quantile quantileLimit="10.0" quantileValue="384.0"/>
+                    <Quantile quantileLimit="20.0" quantileValue="475.8"/>
+                    <Quantile quantileLimit="30.0" quantileValue="544.1"/>
+                    <Quantile quantileLimit="40.0" quantileValue="599.5"/>
+                    <Quantile quantileLimit="50.0" quantileValue="686.5"/>
+                    <Quantile quantileLimit="60.0" quantileValue="782.1"/>
+                    <Quantile quantileLimit="70.0" quantileValue="928.2"/>
+                    <Quantile quantileLimit="80.0" quantileValue="1269.0"/>
+                    <Quantile quantileLimit="90.0" quantileValue="1681.0"/>
+                    <Quantile quantileLimit="100.0" quantileValue="4254.0"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="501051.7999999998" totalSquaresSum="6.253448362199999E8">
+                    <Extension name="BinCountPos" value="[3871, 3867, 3869, 3870, 3870, 3866, 3867, 3866, 3869, 2461]"/>
+                    <Extension name="BinWeightedCountPos" value="[3871.0, 3867.0, 3869.0, 3870.0, 3870.0, 3866.0, 3867.0, 3866.0, 3869.0, 2461.0]"/>
+                    <Extension name="BinCountNeg" value="[56753, 4741, 879, 351, 0, 0, 0, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.06385259963050936, 0.4492332713754647, 0.8148694187026116, 0.9168443496801706, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[56753.0, 4741.0, 879.0, 351.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="80.09581989515601"/>
+                    <Extension name="BinWOE" value="[-2.164801184357092, 0.3166253899414942, 2.002360912438329, 2.9206180072464565, 20.760755750021943, 20.759721623767387, 20.75998025560616, 20.759721623767387, 20.760497318698878, 20.308069014940635]"/>
+                    <Extension name="IV" value="14.320154830020881"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="788.0"/>
+                    <Interval closure="openClosed" leftMargin="788.0" rightMargin="915.0"/>
+                    <Interval closure="openClosed" leftMargin="915.0" rightMargin="1032.0"/>
+                    <Interval closure="openClosed" leftMargin="1032.0" rightMargin="1227.0"/>
+                    <Interval closure="openClosed" leftMargin="1227.0" rightMargin="1321.0"/>
+                    <Interval closure="openClosed" leftMargin="1321.0" rightMargin="1540.0"/>
+                    <Interval closure="openClosed" leftMargin="1540.0" rightMargin="1671.0"/>
+                    <Interval closure="openClosed" leftMargin="1671.0" rightMargin="1933.0"/>
+                    <Interval closure="openClosed" leftMargin="1933.0" rightMargin="2403.0"/>
+                    <Interval closure="openClosed" leftMargin="2403.0" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_smoothness">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.07117" maximum="0.2226" mean="0.13236859402460469" standardDeviation="0.022832467958810793" median="0.1313" interQuartileRange="0.029399999999999996">
+                    <Quantile quantileLimit="0.0" quantileValue="0.07117"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.1028"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.1124"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.1207"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.1263"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.1313"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.1377"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.1426"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.1502"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.1622"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.2226"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="75.31773000000007" totalSquaresSum="10.265811690099989">
+                    <Extension name="BinCountPos" value="[3868, 3868, 3868, 3867, 3865, 3870, 3870, 3868, 3869, 2463]"/>
+                    <Extension name="BinWeightedCountPos" value="[3868.0, 3868.0, 3868.0, 3867.0, 3865.0, 3870.0, 3870.0, 3868.0, 3869.0, 2463.0]"/>
+                    <Extension name="BinCountNeg" value="[23197, 9131, 12826, 3867, 4571, 3163, 2459, 1756, 1229, 525]"/>
+                    <Extension name="BinPosRate" value="[0.14291520413818584, 0.2975613508731441, 0.23170001198035223, 0.5, 0.45815552394499764, 0.5502630456419736, 0.6114710064781166, 0.6877667140825036, 0.7589250686543743, 0.8242971887550201]"/>
+                    <Extension name="BinWeightedCountNeg" value="[23197.0, 9131.0, 12826.0, 3867.0, 4571.0, 3163.0, 2459.0, 1756.0, 1229.0, 525.0]"/>
+                    <Extension name="KS" value="40.85844403194309"/>
+                    <Extension name="BinWOE" value="[-1.270890920086404, -0.33854317817101165, -0.6783423210655829, 0.5203944609372947, 0.35262414387738805, 0.7221280232937046, 0.973894203815422, 1.3100935413652193, 1.6671897025896456, 2.0661315866903007]"/>
+                    <Extension name="IV" value="0.9137301043684369"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.1183"/>
+                    <Interval closure="openClosed" leftMargin="0.1183" rightMargin="0.1264"/>
+                    <Interval closure="openClosed" leftMargin="0.1264" rightMargin="0.1358"/>
+                    <Interval closure="openClosed" leftMargin="0.1358" rightMargin="0.1402"/>
+                    <Interval closure="openClosed" leftMargin="0.1402" rightMargin="0.1444"/>
+                    <Interval closure="openClosed" leftMargin="0.1444" rightMargin="0.1502"/>
+                    <Interval closure="openClosed" leftMargin="0.1502" rightMargin="0.1551"/>
+                    <Interval closure="openClosed" leftMargin="0.1551" rightMargin="0.1648"/>
+                    <Interval closure="openClosed" leftMargin="0.1648" rightMargin="0.1791"/>
+                    <Interval closure="openClosed" leftMargin="0.1791" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_compactness">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.02729" maximum="1.058" mean="0.25426504393673144" standardDeviation="0.15733649450863968" median="0.2119" interQuartileRange="0.19190000000000002">
+                    <Quantile quantileLimit="0.0" quantileValue="0.02729"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.09358"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.1256"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.161"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.1845"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.2119"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.2515"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.3046"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.3682"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.448"/>
+                    <Quantile quantileLimit="100.0" quantileValue="1.058"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="144.6768100000002" totalSquaresSum="50.84696523369997">
+                    <Extension name="BinCountPos" value="[3870, 3870, 3866, 3866, 3869, 3866, 3868, 3869, 3872, 2460]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3870.0, 3866.0, 3866.0, 3869.0, 3866.0, 3868.0, 3869.0, 3872.0, 2460.0]"/>
+                    <Extension name="BinCountNeg" value="[38661, 8254, 6855, 3686, 1931, 1405, 701, 880, 351, 0]"/>
+                    <Extension name="BinPosRate" value="[0.09099245256401213, 0.3192015836357638, 0.36060069023411995, 0.511917372881356, 0.6670689655172414, 0.7334471637260482, 0.8465747428321295, 0.8146978311223415, 0.9168837319441155, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[38661.0, 8254.0, 6855.0, 3686.0, 1931.0, 1405.0, 701.0, 880.0, 351.0, 0.0]"/>
+                    <Extension name="KS" value="54.58944750341848"/>
+                    <Extension name="BinWOE" value="[-1.7811823705363343, -0.23704896249004198, -0.05236347058357276, 0.5680729823964022, 1.2153525315825624, 1.532577536095665, 2.2283794231498844, 2.001223902659363, 2.921134669618599, 20.307662593476604]"/>
+                    <Extension name="IV" value="3.1719316708950234"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.1928"/>
+                    <Interval closure="openClosed" leftMargin="0.1928" rightMargin="0.2302"/>
+                    <Interval closure="openClosed" leftMargin="0.2302" rightMargin="0.2772"/>
+                    <Interval closure="openClosed" leftMargin="0.2772" rightMargin="0.3206"/>
+                    <Interval closure="openClosed" leftMargin="0.3206" rightMargin="0.3593"/>
+                    <Interval closure="openClosed" leftMargin="0.3593" rightMargin="0.4002"/>
+                    <Interval closure="openClosed" leftMargin="0.4002" rightMargin="0.4257"/>
+                    <Interval closure="openClosed" leftMargin="0.4257" rightMargin="0.5209"/>
+                    <Interval closure="openClosed" leftMargin="0.5209" rightMargin="0.6643"/>
+                    <Interval closure="openClosed" leftMargin="0.6643" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_concavity">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.0" maximum="1.252" mean="0.27218848330404205" standardDeviation="0.20862428482759204" median="0.2267" interQuartileRange="0.2684">
+                    <Quantile quantileLimit="0.0" quantileValue="0.0"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.04506"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.09189"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.1366"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.1769"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.2267"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.2866"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.3508"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.4211"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.5754"/>
+                    <Quantile quantileLimit="100.0" quantileValue="1.252"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="154.87524699999992" totalSquaresSum="66.87694196312904">
+                    <Extension name="BinCountPos" value="[3870, 3869, 3869, 4045, 3868, 3866, 3867, 3869, 3868, 2285]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3869.0, 3869.0, 4045.0, 3868.0, 3866.0, 3867.0, 3869.0, 3868.0, 2285.0]"/>
+                    <Extension name="BinCountNeg" value="[50956, 5096, 2459, 1227, 526, 527, 526, 352, 351, 704]"/>
+                    <Extension name="BinPosRate" value="[0.07058694779848977, 0.43156720580033464, 0.6114096080910241, 0.7672610015174507, 0.8802913063268093, 0.880036421579786, 0.8802640564534486, 0.9166074389954987, 0.9168049300782176, 0.7644697223151555]"/>
+                    <Extension name="BinWeightedCountNeg" value="[50956.0, 5096.0, 2459.0, 1227.0, 526.0, 527.0, 526.0, 352.0, 351.0, 704.0]"/>
+                    <Extension name="KS" value="70.85642618824302"/>
+                    <Extension name="BinWOE" value="[-2.057313545770364, 0.24493461877649508, 0.9736357724923566, 1.7133038421866087, 2.5155860944698385, 2.5131695618844034, 2.5153275295041997, 2.917514623841927, 2.920101077796312, 1.6977374014873143]"/>
+                    <Extension name="IV" value="3.0559977974324717"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.256"/>
+                    <Interval closure="openClosed" leftMargin="0.256" rightMargin="0.3157"/>
+                    <Interval closure="openClosed" leftMargin="0.3157" rightMargin="0.3533"/>
+                    <Interval closure="openClosed" leftMargin="0.3533" rightMargin="0.3861"/>
+                    <Interval closure="openClosed" leftMargin="0.3861" rightMargin="0.4185"/>
+                    <Interval closure="openClosed" leftMargin="0.4185" rightMargin="0.4779"/>
+                    <Interval closure="openClosed" leftMargin="0.4779" rightMargin="0.5381"/>
+                    <Interval closure="openClosed" leftMargin="0.5381" rightMargin="0.6305"/>
+                    <Interval closure="openClosed" leftMargin="0.6305" rightMargin="0.7345"/>
+                    <Interval closure="openClosed" leftMargin="0.7345" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_concave_points">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.0" maximum="0.291" mean="0.11460622319859404" standardDeviation="0.06573235458785194" median="0.09993" interQuartileRange="0.09646999999999999">
+                    <Quantile quantileLimit="0.0" quantileValue="0.0"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.03846"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.05802"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.0716"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.08388"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.09993"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.1218"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.151"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.1776"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.2091"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.291"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="65.210941" totalSquaresSum="9.927760364964989">
+                    <Extension name="BinCountPos" value="[3870, 3869, 3867, 3867, 4045, 3871, 3869, 3867, 3866, 2285]"/>
+                    <Extension name="BinWeightedCountPos" value="[3870.0, 3869.0, 3867.0, 3867.0, 4045.0, 3871.0, 3869.0, 3867.0, 3866.0, 2285.0]"/>
+                    <Extension name="BinCountNeg" value="[56752, 4565, 879, 352, 176, 0, 0, 0, 0, 0]"/>
+                    <Extension name="BinPosRate" value="[0.06383821055062519, 0.4587384396490396, 0.8147914032869785, 0.9165679070869874, 0.9583037194977494, 1.0, 1.0, 1.0, 1.0, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[56752.0, 4565.0, 879.0, 352.0, 176.0, 0.0, 0.0, 0.0, 0.0, 0.0]"/>
+                    <Extension name="KS" value="80.09690830035322"/>
+                    <Extension name="BinWOE" value="[-2.1650419285415183, 0.35497202285625357, 2.001843849345611, 2.9169975607492096, 3.655147261332713, 20.761014114575513, 20.760497318698878, 20.75998025560616, 20.759721623767387, 20.23386726799455]"/>
+                    <Extension name="IV" value="12.455157053952307"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.1226"/>
+                    <Interval closure="openClosed" leftMargin="0.1226" rightMargin="0.1489"/>
+                    <Interval closure="openClosed" leftMargin="0.1489" rightMargin="0.1595"/>
+                    <Interval closure="openClosed" leftMargin="0.1595" rightMargin="0.1727"/>
+                    <Interval closure="openClosed" leftMargin="0.1727" rightMargin="0.1834"/>
+                    <Interval closure="openClosed" leftMargin="0.1834" rightMargin="0.1977"/>
+                    <Interval closure="openClosed" leftMargin="0.1977" rightMargin="0.2091"/>
+                    <Interval closure="openClosed" leftMargin="0.2091" rightMargin="0.2255"/>
+                    <Interval closure="openClosed" leftMargin="0.2255" rightMargin="0.2575"/>
+                    <Interval closure="openClosed" leftMargin="0.2575" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_symmetry">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.1565" maximum="0.6638" mean="0.29007557117750454" standardDeviation="0.06186748176602225" median="0.2822" interQuartileRange="0.0675">
+                    <Quantile quantileLimit="0.0" quantileValue="0.1565"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.2258"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.2435"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.2564"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.2694"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.2822"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.2965"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.3103"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.3258"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.3604"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.6638"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="165.05300000000008" totalSquaresSum="50.05191069999993">
+                    <Extension name="BinCountPos" value="[3866, 3866, 3871, 3866, 3867, 3868, 3870, 3870, 3869, 2463]"/>
+                    <Extension name="BinWeightedCountPos" value="[3866.0, 3866.0, 3871.0, 3866.0, 3867.0, 3868.0, 3870.0, 3870.0, 3869.0, 2463.0]"/>
+                    <Extension name="BinCountNeg" value="[19848, 11944, 8437, 7559, 5094, 4215, 4045, 1054, 528, 0]"/>
+                    <Extension name="BinPosRate" value="[0.16302606055494645, 0.24452877925363695, 0.3145108872278193, 0.3383807439824945, 0.4315366588550385, 0.47853519732772487, 0.48894504106127606, 0.7859463850528026, 0.8799181259949966, 1.0]"/>
+                    <Extension name="BinWeightedCountNeg" value="[19848.0, 11944.0, 8437.0, 7559.0, 5094.0, 4215.0, 4045.0, 1054.0, 528.0, 0.0]"/>
+                    <Extension name="KS" value="34.68919178191599"/>
+                    <Extension name="BinWOE" value="[-1.1154884033598056, -0.6076142174163242, -0.25871946177308713, -0.1501240637941161, 0.24481009739589105, 0.43448244720819346, 0.4761674175391604, 1.8210565135300563, 2.5120495216735352, 20.308881362668888]"/>
+                    <Extension name="IV" value="2.0805119528843408"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.2478"/>
+                    <Interval closure="openClosed" leftMargin="0.2478" rightMargin="0.2691"/>
+                    <Interval closure="openClosed" leftMargin="0.2691" rightMargin="0.2841"/>
+                    <Interval closure="openClosed" leftMargin="0.2841" rightMargin="0.301"/>
+                    <Interval closure="openClosed" leftMargin="0.301" rightMargin="0.3135"/>
+                    <Interval closure="openClosed" leftMargin="0.3135" rightMargin="0.3266"/>
+                    <Interval closure="openClosed" leftMargin="0.3266" rightMargin="0.3549"/>
+                    <Interval closure="openClosed" leftMargin="0.3549" rightMargin="0.3799"/>
+                    <Interval closure="openClosed" leftMargin="0.3799" rightMargin="0.4667"/>
+                    <Interval closure="openClosed" leftMargin="0.4667" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+            <UnivariateStats field="worst_fractal_dimension">
+                <Counts totalFreq="569.0" missingFreq="0.0" invalidFreq="0.0"/>
+                <NumericInfo minimum="0.05504" maximum="0.2075" mean="0.08394581722319855" standardDeviation="0.01806131608747287" median="0.08004" interQuartileRange="0.02062">
+                    <Quantile quantileLimit="0.0" quantileValue="0.05504"/>
+                    <Quantile quantileLimit="10.0" quantileValue="0.06576"/>
+                    <Quantile quantileLimit="20.0" quantileValue="0.0696"/>
+                    <Quantile quantileLimit="30.0" quantileValue="0.07343"/>
+                    <Quantile quantileLimit="40.0" quantileValue="0.07685"/>
+                    <Quantile quantileLimit="50.0" quantileValue="0.08004"/>
+                    <Quantile quantileLimit="60.0" quantileValue="0.08321"/>
+                    <Quantile quantileLimit="70.0" quantileValue="0.08902"/>
+                    <Quantile quantileLimit="80.0" quantileValue="0.09606"/>
+                    <Quantile quantileLimit="90.0" quantileValue="0.1064"/>
+                    <Quantile quantileLimit="100.0" quantileValue="0.2075"/>
+                </NumericInfo>
+                <ContStats totalValuesSum="47.765169999999976" totalSquaresSum="4.194973157299997">
+                    <Extension name="BinCountPos" value="[3869, 3866, 3868, 3868, 3871, 3865, 3870, 3870, 3866, 2463]"/>
+                    <Extension name="BinWeightedCountPos" value="[3869.0, 3866.0, 3868.0, 3868.0, 3871.0, 3865.0, 3870.0, 3870.0, 3866.0, 2463.0]"/>
+                    <Extension name="BinCountNeg" value="[12476, 14585, 9311, 7906, 6503, 4920, 2457, 1755, 1758, 1053]"/>
+                    <Extension name="BinPosRate" value="[0.23670847353930866, 0.20952793886510215, 0.2934972304423704, 0.3285204688296246, 0.37314439946018896, 0.43995446784291403, 0.6116642958748222, 0.688, 0.6874110953058321, 0.7005119453924915]"/>
+                    <Extension name="BinWeightedCountNeg" value="[12476.0, 14585.0, 9311.0, 7906.0, 6503.0, 4920.0, 2457.0, 1755.0, 1758.0, 1053.0]"/>
+                    <Extension name="KS" value="29.0878822631484"/>
+                    <Extension name="BinWOE" value="[-0.650416260971109, -0.8073787604040272, -0.35806445742992166, -0.19448992551773978, 0.0016437243022881967, 0.2790476128201168, 0.974707873508359, 1.3111801091084243, 1.3084380405148126, 1.3701313431386821]"/>
+                    <Extension name="IV" value="0.5222510185954743"/>
+                    <Interval closure="openClosed" leftMargin="-INF" rightMargin="0.06829"/>
+                    <Interval closure="openClosed" leftMargin="0.06829" rightMargin="0.0757"/>
+                    <Interval closure="openClosed" leftMargin="0.0757" rightMargin="0.0792"/>
+                    <Interval closure="openClosed" leftMargin="0.0792" rightMargin="0.08317"/>
+                    <Interval closure="openClosed" leftMargin="0.08317" rightMargin="0.08911"/>
+                    <Interval closure="openClosed" leftMargin="0.08911" rightMargin="0.09479"/>
+                    <Interval closure="openClosed" leftMargin="0.09479" rightMargin="0.1016"/>
+                    <Interval closure="openClosed" leftMargin="0.1016" rightMargin="0.1072"/>
+                    <Interval closure="openClosed" leftMargin="0.1072" rightMargin="0.1249"/>
+                    <Interval closure="openClosed" leftMargin="0.1249" rightMargin="INF"/>
+                </ContStats>
+            </UnivariateStats>
+        </ModelStats>
+        <Targets>
+            <Target field="diagnosis" optype="categorical">
+                <TargetValue value="M" displayValue="Malignant"/>
+                <TargetValue value="B" displayValue="Benign"/>
+            </Target>
+        </Targets>
+    </NeuralNetwork>
+</PMML>

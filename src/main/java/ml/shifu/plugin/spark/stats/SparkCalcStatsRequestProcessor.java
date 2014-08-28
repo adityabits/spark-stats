@@ -30,6 +30,7 @@ public class SparkCalcStatsRequestProcessor implements RequestProcessor{
         HDFSFileUtils hdfsUtils= new HDFSFileUtils(pathHadoopConf);
         
         // upload PMML, request and input to HDFS temp dir
+        pathHDFSTmp= hdfsUtils.relativeToFullHDFSPath(pathHDFSTmp);
         String pathHdfsPmml= hdfsUtils.uploadToHDFSIfLocal(pathPMML, pathHDFSTmp);
         String pathHdfsRequest= hdfsUtils.uploadToHDFSIfLocal(pathRequest, pathHDFSTmp);
         String pathHdfsInput= hdfsUtils.uploadToHDFSIfLocal(pathInputData, pathHDFSTmp);
@@ -38,7 +39,7 @@ public class SparkCalcStatsRequestProcessor implements RequestProcessor{
         // construct spark-submit command
         String pathSparkSubmit= sparkHome + "/bin/spark-submit";
         ProcessBuilder procBuilder = new ProcessBuilder(pathSparkSubmit,
-                "--class", "ml.shifu.plugin.spark.stats.SparkStatsDriver", "--master",
+                "--class", SparkStatsDriver.class.getCanonicalName(), "--master",
                 sparkMode, "--driver-memory", sparkDriverMemory,
                 "--executor-memory", sparkExecutorMemory, "--num-executors",
                 sparkNumExecutors, "--executor-cores", sparkExecutorCores,

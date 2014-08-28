@@ -39,7 +39,7 @@ public class HDFSUtilsTest {
         FileUtils.deleteQuietly(testFile);
         
         // test on HDFS
-        Path testPath= new Path(hdfsUtils.relativeToFullHDFSPath("hdfs:///ml/shifu/test/dummy"));
+        Path testPath= new Path(hdfsUtils.relativeToFullHDFSPath("ml/shifu/test/dummy"));
         FileSystem hdfs= FileSystem.get(hdfsUtils.getHDFSConf());
         System.out.println("hdfs testfile: " + testPath.toString());
         hdfs.createNewFile(testPath);
@@ -57,15 +57,15 @@ public class HDFSUtilsTest {
     public void uploadToHDFSIfLocalTest() throws Exception {
         File testFile= new File("src/test/resources/HDFSTest/dummy");
         FileUtils.touch(testFile);
-        hdfsUtils.uploadToHDFSIfLocal(testFile.getAbsolutePath(), "hdfs://ml/shifu/test");
-        Assert.assertTrue(hdfsUtils.exists("hdfs://ml/shifu/test/dummy"));
-        hdfsUtils.delete("hdfs://ml/shifu/test/dummy");
+        hdfsUtils.uploadToHDFSIfLocal(testFile.getAbsolutePath(), "ml/shifu/test");
+        Assert.assertTrue(hdfsUtils.exists(hdfsUtils.relativeToFullHDFSPath("ml/shifu/test/dummy")));
+        hdfsUtils.delete("ml/shifu/test/dummy");
         
         // check with hdfs file
-        hdfsUtils.createEmptyFile("hdfs://ml/shifu/test1/dummy");
-        hdfsUtils.uploadToHDFSIfLocal("hdfs://ml/shifu/test1/dummy", "hdfs://ml/shifu/test");
-        Assert.assertFalse(hdfsUtils.exists("hdfs://ml/shifu/test/dummy"));
-        hdfsUtils.delete("hdfs://ml/shifu/test1");
+        hdfsUtils.createEmptyFile("ml/shifu/test1/dummy");
+        hdfsUtils.uploadToHDFSIfLocal("ml/shifu/test1/dummy", "ml/shifu/test");
+        Assert.assertFalse(hdfsUtils.exists("ml/shifu/test/dummy"));
+        hdfsUtils.delete("ml/shifu/test1");
     }
     
     @Test 

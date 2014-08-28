@@ -50,10 +50,12 @@ public class RSampleUnitState<T> implements Serializable {
         ArrayList<T> newSamples= new ArrayList<T>();
         double interval= (double)this.samples.size()/numSamples;
         Random rand= new Random();
+        int size= this.samples.size();
         int nextIntDist, currIndex= 0;
         for(int i=0; i < numSamples; i++) {
             nextIntDist= (int)(rand.nextDouble()*interval) + 1;
-            currIndex+= (nextIntDist)%this.samples.size();
+            currIndex+= nextIntDist;
+            currIndex%= size;
             newSamples.add(samples.get(currIndex));
         }
         return newSamples;

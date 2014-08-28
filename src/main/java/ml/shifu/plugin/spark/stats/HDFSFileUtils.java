@@ -51,6 +51,26 @@ public class HDFSFileUtils {
             hdfs.close();
     }
 
+    public HDFSFileUtils(URI HDFSUri) throws IOException {
+        this.hdfsConf= new Configuration();
+        hdfsConf.set("fs.default.name", HDFSUri.toString());
+        FileSystem hdfs = null;
+        try {
+            hdfs = FileSystem.get(this.hdfsConf);
+        } catch (IOException e) {
+            System.out
+                    .println("ERROR: Could not create instance of filesystem");
+            e.printStackTrace();
+        }
+
+        if (hdfs instanceof LocalFileSystem) {
+            throw new IOException("ERROR: Could not create instance of hdfs FileSystem. Please check HDFS URI, got " + HDFSUri.toString());
+        }
+
+        if (hdfs != null)
+            hdfs.close();
+        
+    }
 
     /**
      * Deletes files from HDFS/ local filesystem.
@@ -108,7 +128,7 @@ public class HDFSFileUtils {
     public String uploadToHDFSIfLocal(String localPath, String HDFSDir)
             throws Exception {
         localPath= fullDefaultLocal(localPath);
-        HDFSDir= fullDefaultLocal(HDFSDir);
+        HDFSDir= relativeToFullHDFSPath(HDFSDir);
         
         if (isHDFS(localPath))
             return localPath;
@@ -164,11 +184,15 @@ public class HDFSFileUtils {
         if(relPath.startsWith("file:"))
             return relPath;
         else if (relPath.startsWith("hdfs:")) {
+            // assume path is full as we cannot verify presence/ absence of URI authority and port
+            return relPath;
+            /*
             // make sure path contains authority, port etc.
             URI uri= new URI(relPath);
             URI hdfsURI= new URI(getHDFSUri());
             URI fullURI= new URI(hdfsURI.getScheme(), hdfsURI.getAuthority(), uri.getPath(), null, null);
             return fullURI.toString();
+            */
         }
         if (relPath.startsWith("/")) {
             // relPath relative to root
@@ -213,6 +237,12 @@ public class HDFSFileUtils {
         }
         else {   // path is relative to CWD
             // get CWD
+            if(path.startsWith("."))
+                // if path starts with ./ remove that portion
+                if(path.length() > 2)
+                    path= path.substring(2);
+                else
+                    path="";
             String workingDir = System.getProperty("user.dir");
             // add schema to local path
             return relativeToFullLocalPath(workingDir + "/" + path);
